@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Sneaker.Models.Product>
+@{
+    ViewBag.Title = "Список товаров";
+}
+
+<html>
+<head>
+</head>
+<body>
+    sfsdf
+    <a asp-action="Create">Добавить товар</a>
+    <table class="table">
+        <tr><td>Товар</td></tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.ProductName</td>
+            <td>
+                <a asp-action="Details" asp-controller="Product" asp-route-id="@item.ProductId">Подробнее</a> |
+
+            </td>
+        </tr>
+        }
+    </table>
+</body>
+</html>

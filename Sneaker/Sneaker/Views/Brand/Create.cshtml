@@ -1,0 +1,17 @@
+﻿@model Sneaker.Models.Brand
+@{
+    ViewBag.Title = "Добавление бренда";
+}
+<form asp-action="Create" asp-controller="Brand">
+    <div class="form-group">
+        <label asp-for="BrandName" class="control-label">Название</label>
+        <input type="text" asp-for="BrandName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Описание</label>
+        <input type="text" asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>

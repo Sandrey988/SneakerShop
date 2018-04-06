@@ -1,0 +1,21 @@
+﻿@model Sneaker.Models.Img
+@{
+    ViewBag.Title = "Удаление картинки";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>Удалить это изображение?</dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImgUrl)
+        </dd>
+    </dl>
+
+    <div>
+        <form asp-controller="Img" asp-action="Delete" method="post">
+            <div class="form-group">
+                <input type="submit" class="btn btn-default" value="Удалить" />
+            </div>
+        </form>
+    </div>
+</div>

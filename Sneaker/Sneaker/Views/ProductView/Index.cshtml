@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Sneaker.ViewModel.ProductView>
+
+@{
+    foreach (var product in Model)
+    {
+        <a asp-action="Details" asp-controller="Sneaker" asp-route-id="@product.Id">
+                  <div>
+                      <img src="@product.UrlImage" height="278" width="278" />
+                      <div>
+                          <p>@product.Name</p>
+                          <p>$@product.Price</p>
+                      </div>
+                      </div>
+        </a>
+                      
+                  
+        
+
+
+}
+}

@@ -1,0 +1,22 @@
+﻿@model Sneaker.Models.Sneaker
+@{
+    ViewBag.Title = "Редактирование кроссовков";
+}
+
+<form asp-action="edit" asp-controller="Sneaker" asp-route-id="@Model.SneakerId" method="post">
+    <div class="form-group">
+        <label asp-for="SneakerName" class="control-label">Название</label>
+        <input type="text" asp-for="SneakerName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Описание</label>
+        <input type="text" asp-for="Description" class="form-control" />
+    </div>
+
+
+
+
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>
