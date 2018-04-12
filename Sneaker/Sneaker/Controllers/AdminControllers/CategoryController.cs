@@ -7,22 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
 using Sneaker.Context;
+using Sneaker.Repositories.Interfaces;
+
 
 namespace Sneaker.Controllers.AdminControllers
 {
     public class CategoryController : Controller
     {
-        private ModelContext db;
+        private readonly IRepository<Category> br;
 
-        public CategoryController(ModelContext context)
+        public CategoryController(IRepository<Category> categoryRepository)
         {
-            db = context;
+            br = categoryRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public ViewResult Index()
         {
-            return View(await db.Categories.ToListAsync());
+            return View(br.GetAll);
         }
+
 
         public IActionResult Create()
         {
@@ -30,66 +33,53 @@ namespace Sneaker.Controllers.AdminControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Category category)
+        public IActionResult Create(Category category)
         {
-            db.Categories.Add(category);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id != null)
+            if (ModelState.IsValid)
             {
-                Category category = await db.Categories.FirstOrDefaultAsync(p => p.Id == id);
-                if (category != null)
-                    return View(category);
-            }
-            return NotFound();
-        }
-
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id != null)
-            {
-                Category category = await db.Categories.FirstOrDefaultAsync(p => p.Id == id);
-                if (category != null)
-                    return View(category);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(Category category)
-        {
-            db.Categories.Update(category);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
-        {
-            if (id != null)
-            {
-                Category category = await db.Categories.FirstOrDefaultAsync(p => p.Id == id);
-                if (category != null)
-                    return View(category);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id != null)
-            {
-                Category category = new Category { Id = id.Value };
-                db.Entry(category).State = EntityState.Deleted;
-                await db.SaveChangesAsync();
+                br.Create(category);
+                br.Save();
                 return RedirectToAction("Index");
             }
+
+            return View(category);
+        }
+
+
+        public IActionResult Edit(int id)
+        {
+            Category category = br.Get(id);
+            return View(category);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                br.Edit(category);
+                br.Save();
+                return RedirectToAction("Index");
+            }
+            return View(category);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            Category category = br.Get(id);
+            return View(category);
+        }
+
+
+        [HttpPost]
+        public IActionResult Delete(int? id)
+        {
+            if (id != null)
+            {
+                br.Delete(id);
+                br.Save();
+                return RedirectToAction("Index");
+            }   
             return NotFound();
         }
     }

@@ -8,51 +8,28 @@ using Sneaker.Models;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Context;
 using Sneaker.Repositories;
+using Sneaker.Repositories.Interfaces;
 
 namespace Sneaker.Controllers.AdminControllers
 {
     public class BrandController : Controller
     {
-        private readonly IBrandRepository br;
+        private readonly IRepository<Brand> br;
 
-        public BrandController(IBrandRepository brandRepository)
+        public BrandController(IRepository<Brand> brandRepository)
         {
             br = brandRepository;
         }
 
         public ViewResult Index()
         {
-            return View(br.GetBrands);
+            return View(br.GetAll);
         }
 
-        //private ModelContext db;
-
-        //public BrandController(ModelContext model)
-        //{
-        //    db = model;
-        //}
-
-        //public IActionResult Index()
-        //{
-        //    return View(db.Brands);
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> Create(Brand brand)

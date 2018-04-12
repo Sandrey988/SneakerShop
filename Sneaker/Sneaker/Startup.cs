@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Sneaker.Context;
 using Sneaker.Repositories;
+using Sneaker.Repositories.Interfaces;
 
 namespace Sneaker
 {
@@ -29,7 +30,10 @@ namespace Sneaker
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ModelContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
-            services.AddTransient<IBrandRepository, BrandRepository>();
+
+            services.AddTransient<IRepository<Brand>, BrandRepository>();
+            services.AddTransient<IRepository<Category>, CategoryRepository>();
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
