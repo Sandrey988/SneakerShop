@@ -1,13 +1,16 @@
-﻿@model Sneaker.ViewModel.ProductView
+﻿@model IEnumerable<Sneaker.ViewModel.ProductView>
 @{
-    ViewBag.Title = Model.Name;
-}
 
-<h2>Кроссовки @Model.Name</h2>
 <div>
-    <dl class="dl-horizontal">
-        <dt>Описание</dt>
-        <dd>@Model.Name</dd>
-    </dl>
+    <img src="@Model.FirstOrDefault().UrlImage" height="278" width="278" />
+    <p>@Model.FirstOrDefault().Name</p>
+    <p>@Model.FirstOrDefault().Amount</p>
+    <p>@Model.FirstOrDefault().BrandName</p>
+    <p>@Model.FirstOrDefault().CategoryName</p>
+    <p>@Model.FirstOrDefault().Description</p>
+    <p>@Model.FirstOrDefault().MaterialName</p>
+    <p>@Model.FirstOrDefault().Price</p>
 
 </div>
+
+}

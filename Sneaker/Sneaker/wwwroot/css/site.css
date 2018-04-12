@@ -1,35 +1,67 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿
+body {
+    font: 14px 'Verdana';
+    margin: 0;
+    padding: 0;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+    ul:after {
+        display: block;
+        content: ' ';
+        clear: both;
+        float: none;
     }
-}
+
+    ul.menu > li {
+        float: left;
+        position: relative;
+    }
+
+        ul.menu > li > a {
+            display: block;
+            padding: 10px;
+            color: white;
+            background-color: red;
+            text-decoration: none;
+        }
+
+            ul.menu > li > a:hover {
+                background-color: black;
+            }
+
+    ul.submenu {
+        display: none;
+        position: absolute;
+        width: 120px;
+        top: 37px;
+        left: 0;
+        background-color: white;
+        border: 1px solid red;
+    }
+
+        ul.submenu > li {
+            display: block;
+        }
+
+            ul.submenu > li > a {
+                display: block;
+                padding: 10px;
+                color: white;
+                background-color: red;
+                text-decoration: none;
+            }
+
+                ul.submenu > li > a:hover {
+                    text-decoration: underline;
+                }
+
+    ul.menu > li:hover > ul.submenu {
+        display: block;
+    }

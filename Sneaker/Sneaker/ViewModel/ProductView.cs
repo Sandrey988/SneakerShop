@@ -17,9 +17,12 @@ namespace Sneaker.ViewModel
         public string BrandName { get; set; }
         public string CategoryName { get; set; }
         public string MaterialName { get; set; }
+        
 
         public IList<Size> Sizes { get; set; }
         public float SelectedSize { get; set; }
+
+       
 
     }
 }

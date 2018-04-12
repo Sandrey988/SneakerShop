@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sneaker.Models;
 using Microsoft.EntityFrameworkCore;
+using Sneaker.Context;
 
 namespace Sneaker.Controllers.AdminControllers
 {
@@ -17,7 +18,7 @@ namespace Sneaker.Controllers.AdminControllers
         {
             db = context;
         }
-       // [Route= "хер"]
+
         public async Task<IActionResult> Index()
         {
             return View(await db.Brands.ToListAsync());

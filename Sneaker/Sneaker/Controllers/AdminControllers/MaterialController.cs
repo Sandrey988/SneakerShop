@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
+using Sneaker.Context;
 
 namespace Sneaker.Controllers.AdminControllers
 {
@@ -40,7 +41,7 @@ namespace Sneaker.Controllers.AdminControllers
         {
             if (id != null)
             {
-                Material material = await db.Materials.FirstOrDefaultAsync(p => p.Id == id);
+                Material material = await db.Materials.FirstOrDefaultAsync();
                 if (material != null)
                     return View(material);
             }

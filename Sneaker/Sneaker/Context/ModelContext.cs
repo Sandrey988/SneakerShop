@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Sneaker.Models;
+using Sneaker.ViewModel;
 
-namespace Sneaker.Models
+namespace Sneaker.Context
 {
     public class ModelContext : DbContext
     {
-        public DbSet<Sneaker> Sneakers { get; set; }
+        public DbSet<Models.Sneaker> Sneakers { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<Img> Imgs { get; set; }
         public DbSet<Category> Categories { get; set; }

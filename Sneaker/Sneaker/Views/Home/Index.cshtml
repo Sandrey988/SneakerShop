@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Sneaker.ViewModel.ProductView>
+
+@{
+    <html>
+    <head>
+        <link rel="stylesheet" href="~/css/site.css">
+    </head>
+    <body>
+        <div align="center">
+            <p>Start Page</p>
+        </div>
+
+            <ul>
+                <li>
+                    <ul>
+                        <li><a asp-action="Index" asp-controller="ProductView" asp-route-id="8">Adidas</a></li>
+                        <li><a asp-action="Index" asp-controller="ProductView" >Asics</a></li>
+                        <li>Nike</li>
+                    </ul>
+                </li>
+            </ul>
+
+    </body>
+    </html>
+    
+}

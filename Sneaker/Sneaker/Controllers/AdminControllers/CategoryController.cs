@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
+using Sneaker.Context;
 
 namespace Sneaker.Controllers.AdminControllers
 {

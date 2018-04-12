@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sneaker.Models;
 using Sneaker.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using Sneaker.Context;
 
 namespace Sneaker.Controllers.AdminControllers
 {

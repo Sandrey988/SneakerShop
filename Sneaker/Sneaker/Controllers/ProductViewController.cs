@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
 using Sneaker.ViewModel;
-
+using Sneaker.Context;
 
 namespace Sneaker.Controllers.AdminControllers
 {
@@ -20,53 +20,77 @@ namespace Sneaker.Controllers.AdminControllers
             db = context;
         }
 
-        public IActionResult Index()
+
+
+        public IActionResult Index(string brand)
         {
+            List<Models.Sneaker> sneakers = new List<Models.Sneaker>();
+            sneakers = db.Sneakers.Where(x => x.Brand.BrandName == brand).ToList();
             List<ProductView> products = new List<ProductView>();
+
             int sneakerId = 0;
-            foreach(var product in db.Products.ToList())
+            foreach (var sneaker in sneakers)
             {
-                sneakerId = db.Sneakers.Where(x => x.SneakerId == product.SneakerId).FirstOrDefault().SneakerId;
+                sneakerId = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerId;
                 products.Add(new ProductView
                 {
-                    Id = product.ProductId,
-                    Name = db.Sneakers.Where(x => x.SneakerId == product.SneakerId).FirstOrDefault().SneakerName,
-                    Price = product.Price,
+
+                    Id = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerId,
+                    Name = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerName,
+                    Price = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().Price,
                     UrlImage = db.Imgs.Where(x => x.SneakerId == sneakerId).FirstOrDefault().ImgUrl
                 });
             }
             return View(products);
         }
 
-        
+
+
+
+       
+
+
         public IActionResult Details(int? id)
         {
+           List<ProductView> productView = new List<ProductView>();
             if (id != null)
             {
-                List<ProductView> productView = new List<ProductView>();
-                int sneakerId = 0;
-                foreach (var product in db.Products.ToList())
+                Product product = db.Products.FirstOrDefault(x=> x.ProductId == id);
+                Models.Sneaker sneaker = db.Sneakers.FirstOrDefault(x=> x.SneakerId == product.SneakerId);
+                Img img = db.Imgs.FirstOrDefault(x=> x.SneakerId == product.SneakerId);
+                Brand brand = db.Brands.FirstOrDefault(x => x.Id == sneaker.BrandId);
+                Material material = db.Materials.FirstOrDefault(x => x.Id == sneaker.MaterialId);
+                Category category = db.Categories.FirstOrDefault(x => x.Id == sneaker.CategoryId);
+                productView.Add(new ProductView
                 {
-                    sneakerId = db.Sneakers.Where(x => x.SneakerId == product.SneakerId).FirstOrDefault(x => x.SneakerId ==id).SneakerId;
-                    productView.Add(new ProductView
-                    {
-                        Id = product.ProductId,
-                        Name = db.Sneakers.Where(x => x.SneakerId == product.SneakerId).FirstOrDefault(x=> x.SneakerId ==id).SneakerName,
-                        //Price = product.Price,
-                        //UrlImage = db.Imgs.Where(x => x.SneakerId == sneakerId).FirstOrDefault().ImgUrl,
-                        //Description = db.Sneakers.Where(x => x.SneakerId == sneakerId).FirstOrDefault().Description,
-                        //BrandName = db.Sneakers.Where(x => x.BrandId == sneakerId).FirstOrDefault().Brand.BrandName,
-                        //MaterialName = db.Sneakers.Where(x => x.MaterialId == sneakerId).FirstOrDefault().Material.MaterialName
+                    Id = product.ProductId,
+                    Name = sneaker.SneakerName,
+                    Amount = product.Amount,
+                    UrlImage = img.ImgUrl,
+                    Price = product.Price,
+                    Description = sneaker.Description,
+                    BrandName = brand.BrandName,
+                    CategoryName = category.CategoryName,
+                    MaterialName = material.MaterialName
 
-                    });
-                }
-
-                //Models.Sneaker sneaker = await db.Sneakers.FirstOrDefaultAsync(p => p.SneakerId == id);
+                });
                 if (productView != null)
-                        return View(productView);
+                    return View(productView);
             }
             return NotFound();
         }
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

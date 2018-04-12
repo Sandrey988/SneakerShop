@@ -11,7 +11,7 @@ namespace Sneaker.ViewModel
         public string Name { get; set; }
         public int Amount { get; set; }
         public decimal Price { get; set; }
-
+        
         public IList<Models.Sneaker> Sneakers { get; set; }
         
         public int SelectSneaker { get; set; }

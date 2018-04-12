@@ -37,12 +37,12 @@ namespace Sneaker
             {
 
             routes.MapRoute(
-                name: "Admindefault",
+                name: "AdminDefault",
                 template: "Admin/{controller=Index}/{action=Index}/{id?}");
 
             routes.MapRoute(
                 name : "default",
-                template: "{controller=ProductView}/{action=Index}");
+                template: "{controller=Home}/{action=Index}");
 
             });
         }
