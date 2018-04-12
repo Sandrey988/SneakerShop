@@ -20,35 +20,29 @@ namespace Sneaker.Controllers.AdminControllers
             db = context;
         }
 
-
-
-        public IActionResult Index(string brand)
+        public IActionResult Index(int? id)
         {
             List<Models.Sneaker> sneakers = new List<Models.Sneaker>();
-            sneakers = db.Sneakers.Where(x => x.Brand.BrandName == brand).ToList();
-            List<ProductView> products = new List<ProductView>();
+            sneakers = db.Sneakers.Where(x => x.BrandId == id).ToList();
+            List<Product> products = new List<Product>(); 
+            
+
+            List<ProductView> productsView = new List<ProductView>();
 
             int sneakerId = 0;
             foreach (var sneaker in sneakers)
             {
                 sneakerId = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerId;
-                products.Add(new ProductView
+                productsView.Add(new ProductView
                 {
-
-                    Id = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerId,
+                    Id = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().ProductId,
                     Name = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerName,
                     Price = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().Price,
                     UrlImage = db.Imgs.Where(x => x.SneakerId == sneakerId).FirstOrDefault().ImgUrl
                 });
             }
-            return View(products);
+            return View(productsView);
         }
-
-
-
-
-       
-
 
         public IActionResult Details(int? id)
         {
@@ -82,14 +76,6 @@ namespace Sneaker.Controllers.AdminControllers
 
     }
 }
-
-
-
-
-
-
-
-
 
 
 

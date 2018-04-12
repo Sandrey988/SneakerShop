@@ -24,8 +24,6 @@ namespace Sneaker.Controllers.AdminControllers
             return View(await db.Categories.ToListAsync());
         }
 
-
-     //   [Route("Admin/Category/{name}")]
         public IActionResult Create()
         {
             return View();

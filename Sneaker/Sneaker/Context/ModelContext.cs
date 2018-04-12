@@ -21,6 +21,7 @@ namespace Sneaker.Context
         public ModelContext(DbContextOptions<ModelContext> options)
             : base(options) { }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductSize>()

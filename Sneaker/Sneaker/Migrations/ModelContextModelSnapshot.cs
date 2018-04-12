@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Sneaker.Models;
+using Sneaker.Context;
 using System;
 
 namespace Sneaker.Migrations
@@ -169,7 +169,7 @@ namespace Sneaker.Migrations
             modelBuilder.Entity("Sneaker.Models.Product", b =>
                 {
                     b.HasOne("Sneaker.Models.Sneaker", "Sneaker")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("SneakerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

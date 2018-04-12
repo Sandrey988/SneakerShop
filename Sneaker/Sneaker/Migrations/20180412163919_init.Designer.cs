@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Sneaker.Models;
+using Sneaker.Context;
 using System;
 
 namespace Sneaker.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20180329074317_qwe")]
-    partial class qwe
+    [Migration("20180412163919_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -106,6 +106,19 @@ namespace Sneaker.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Sneaker.Models.ProductSize", b =>
+                {
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("SizeId");
+
+                    b.HasKey("ProductId", "SizeId");
+
+                    b.HasIndex("SizeId");
+
+                    b.ToTable("ProductSize");
+                });
+
             modelBuilder.Entity("Sneaker.Models.Size", b =>
                 {
                     b.Property<int>("SizeId")
@@ -146,19 +159,6 @@ namespace Sneaker.Migrations
                     b.ToTable("Sneakers");
                 });
 
-            modelBuilder.Entity("Sneaker.Models.SneakerSize", b =>
-                {
-                    b.Property<int>("SneakerId");
-
-                    b.Property<int>("SizeId");
-
-                    b.HasKey("SneakerId", "SizeId");
-
-                    b.HasIndex("SizeId");
-
-                    b.ToTable("SneakerSize");
-                });
-
             modelBuilder.Entity("Sneaker.Models.Img", b =>
                 {
                     b.HasOne("Sneaker.Models.Sneaker", "Sneaker")
@@ -172,6 +172,19 @@ namespace Sneaker.Migrations
                     b.HasOne("Sneaker.Models.Sneaker", "Sneaker")
                         .WithMany()
                         .HasForeignKey("SneakerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Sneaker.Models.ProductSize", b =>
+                {
+                    b.HasOne("Sneaker.Models.Product", "Product")
+                        .WithMany("SneakerSizes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Sneaker.Models.Size", "Size")
+                        .WithMany("SneakerSizes")
+                        .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -190,19 +203,6 @@ namespace Sneaker.Migrations
                     b.HasOne("Sneaker.Models.Material", "Material")
                         .WithMany("Sneakers")
                         .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Sneaker.Models.SneakerSize", b =>
-                {
-                    b.HasOne("Sneaker.Models.Size", "Size")
-                        .WithMany("SneakerSizes")
-                        .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Sneaker.Models.Sneaker", "Sneaker")
-                        .WithMany("SneakerSizes")
-                        .HasForeignKey("SneakerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

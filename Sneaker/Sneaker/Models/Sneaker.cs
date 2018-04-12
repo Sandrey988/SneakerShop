@@ -26,6 +26,5 @@ namespace Sneaker.Models
         public Material Material { get; set; }
         
         public List<Img> Img { get; set; }
-        public List<Product> Products { get; set; }
     }
 }
