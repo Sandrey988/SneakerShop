@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Sneaker.Models;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Context;
-using Sneaker.Repositories;
 using Sneaker.Repositories.Interfaces;
 
 namespace Sneaker.Controllers.AdminControllers
@@ -31,68 +30,54 @@ namespace Sneaker.Controllers.AdminControllers
             return View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(Brand brand)
-        //{
-        //    db.Brands.Add(brand);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        public IActionResult Create(Brand brand)
+        {
+            if (ModelState.IsValid)
+            {
+                br.Create(brand);
+                br.Save();
+                return RedirectToAction("Index");
+            }
 
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id != null)
-        //    {
-        //        Brand brand = await db.Brands.FirstOrDefaultAsync(p => p.Id == id);
-        //        if (brand != null)
-        //            return View(brand);
-        //    }
-        //    return NotFound();
-        //}
+            return View(brand);
+        }
 
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id != null)
-        //    {
-        //        Brand brand = await db.Brands.FirstOrDefaultAsync(p => p.Id == id);
-        //        if (brand != null)
-        //            return View(brand);
-        //    }
-        //    return NotFound();
-        //}
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(Brand brand)
-        //{
-        //    db.Brands.Update(brand);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
+        public IActionResult Edit(int id)
+        {
+            Brand brand = br.Get(id);
+            return View(brand);
+        }
 
-        //[HttpGet]
-        //[ActionName("Delete")]
-        //public async Task<IActionResult> ConfirmDelete(int? id)
-        //{
-        //    if (id != null)
-        //    {
-        //        Brand brand = await db.Brands.FirstOrDefaultAsync(p => p.Id == id);
-        //        if (brand != null)
-        //            return View(brand);
-        //    }
-        //    return NotFound();
-        //}
+        [HttpPost]
+        public IActionResult Edit(Brand brand)
+        {
+            if (ModelState.IsValid)
+            {
+                br.Edit(brand);
+                br.Save();
+                return RedirectToAction("Index");
+            }
+            return View(brand);
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id != null)
-        //    {
-        //        Brand brand = new Brand { Id = id.Value };
-        //        db.Entry(brand).State = EntityState.Deleted;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return NotFound();
-        //}
+        public IActionResult Delete(int id)
+        {
+            Brand brand = br.Get(id);
+            return View(brand);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int? id)
+        {
+            if (id != null)
+            {
+                br.Delete(id);
+                br.Save();
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+        }
     }
 }

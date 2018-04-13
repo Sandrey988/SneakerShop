@@ -4,93 +4,84 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
+using Sneaker.Repositories.Interfaces;
+using Sneaker.ViewModel;
+using Sneaker.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Sneaker.Context;
 
 namespace Sneaker.Controllers.AdminControllers
 {
     public class MaterialController : Controller
     {
-        private ModelContext db;
 
-        public MaterialController(ModelContext context)
+        private readonly IRepository<Material> br;
+
+        public MaterialController(IRepository<Material> materialRepository)
         {
-            db = context;
+            br = materialRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public ViewResult Index()
         {
-            return View(await db.Materials.ToListAsync());
+            return View(br.GetAll);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Material material)
-        {
-            db.Materials.Add(material);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost]
+        //public IActionResult Create(Material material)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        br.Create(material);
+        //        br.Save();
+        //        return RedirectToAction("Index");
+        //    }
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id != null)
-            {
-                Material material = await db.Materials.FirstOrDefaultAsync();
-                if (material != null)
-                    return View(material);
-            }
-            return NotFound();
-        }
+        //    return View(material);
+        //}
 
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id != null)
-            {
-                Material material = await db.Materials.FirstOrDefaultAsync(p => p.Id == id);
-                if (material != null)
-                    return View(material);
-            }
-            return NotFound();
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(Material material)
-        {
-            db.Materials.Update(material);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+        //public IActionResult Edit(int id)
+        //{
+        //    Material material = br.Get(id);
+        //    return View(material);
+        //}
 
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
-        {
-            if (id != null)
-            {
-                Material material = await db.Materials.FirstOrDefaultAsync(p => p.Id == id);
-                if (material != null)
-                    return View(material);
-            }
-            return NotFound();
-        }
+        //[HttpPost]
+        //public IActionResult Edit(Material material)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        br.Edit(material);
+        //        br.Save();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(material);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id != null)
-            {
-                Material material = new Material { Id = id.Value };
-                db.Entry(material).State = EntityState.Deleted;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return NotFound();
-        }
+        //public IActionResult Delete(int id)
+        //{
+        //    Material material = br.Get(id);
+        //    return View(material);
+        //}
+
+
+        //[HttpPost]
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (id != null)
+        //    {
+        //        br.Delete(id);
+        //        br.Save();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return NotFound();
+        //}
     }
 }

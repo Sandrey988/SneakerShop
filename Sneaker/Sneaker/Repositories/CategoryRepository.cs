@@ -12,7 +12,10 @@ namespace Sneaker.Repositories
     public class CategoryRepository : IRepository<Category>
     {
         private readonly ModelContext db;
-        public CategoryRepository(ModelContext model) { db = model; }
+        public CategoryRepository(ModelContext model)
+        {
+            db = model;
+        }
 
         public IEnumerable<Category> GetAll => db.Categories;
 

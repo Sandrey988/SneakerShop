@@ -17,7 +17,5 @@ namespace Sneaker.Models
         public string Description { get; set; }
 
         public List<Sneaker> Sneakers { get; set; }
-        
-
     }
 }

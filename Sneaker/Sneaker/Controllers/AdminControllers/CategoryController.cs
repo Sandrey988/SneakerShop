@@ -9,7 +9,6 @@ using Sneaker.Models;
 using Sneaker.Context;
 using Sneaker.Repositories.Interfaces;
 
-
 namespace Sneaker.Controllers.AdminControllers
 {
     public class CategoryController : Controller

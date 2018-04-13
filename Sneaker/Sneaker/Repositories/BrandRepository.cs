@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Sneaker.Context;
 using Sneaker.Models;
 using Sneaker.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sneaker.Repositories
 {
@@ -15,37 +16,34 @@ namespace Sneaker.Repositories
         {
             db = model;
         }
-        
+
         public IEnumerable<Brand> GetAll => db.Brands;
 
-        public void ConfirmDelete(int? id)
+        public void Create(Brand brand)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Create(Brand item)
-        {
-            throw new NotImplementedException();
+            db.Brands.Add(brand);
         }
 
         public void Delete(int? id)
         {
-            throw new NotImplementedException();
+            Brand brand = db.Brands.Find(id);
+            if (brand != null)
+                db.Brands.Remove(brand);
         }
 
         public Brand Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Brands.Find(id);
+        }
+
+        public void Edit(Brand brand)
+        {
+            db.Entry(brand).State = EntityState.Modified;
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(Brand item)
-        {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
     }
 }

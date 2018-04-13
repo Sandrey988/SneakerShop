@@ -17,10 +17,5 @@ namespace Sneaker.Models
         public string Description { get; set; }
 
         public List<Sneaker> Sneaker { get; set; }
-
-        public static implicit operator string(Brand v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
