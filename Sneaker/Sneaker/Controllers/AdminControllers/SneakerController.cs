@@ -8,105 +8,57 @@ using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
 using Sneaker.ViewModel;
 using Sneaker.Context;
+using Sneaker.Repositories.Interfaces;
 
 namespace Sneaker.Controllers.AdminControllers
 {
     public class SneakerController : Controller
     {
-        private ModelContext db;
+        private readonly ISneakerRepository<Models.Sneaker> br;
 
-        public SneakerController(ModelContext context)
+        public SneakerController(ISneakerRepository<Models.Sneaker> sneakerRepository)
         {
-            db = context;
+            br = sneakerRepository;
         }
-
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await db.Sneakers.ToListAsync());
+            return View(br.GetAll);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            SneakerAll sneakerAll = new SneakerAll
-            {
-                Brands = db.Brands.ToList(),
-                Categories = db.Categories.ToList(),
-                Materials = db.Materials.ToList()
-            };
-
+            SneakerAll sneakerAll = br.GetItemDb();
             return View(sneakerAll);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(SneakerAll sneakerAll, Models.Sneaker sneaker)
+        public IActionResult Create(Models.Sneaker sneaker, SneakerAll sneakerAll)
         {
-            sneaker.SneakerId = sneakerAll.Id;
-            sneaker.Description = sneakerAll.Descriptions;
-            sneaker.SneakerName = sneakerAll.Name;
-            sneaker.CategoryId = sneakerAll.SelectedCategory;
-            sneaker.MaterialId = sneakerAll.SelectedMaterial;
-            sneaker.BrandId = sneakerAll.SelectedBrand;
-
-
-            db.Sneakers.Add(sneaker);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id != null)
+            if (ModelState.IsValid)
             {
-                Models.Sneaker sneaker = await db.Sneakers.FirstOrDefaultAsync(p => p.SneakerId == id);
-                if (sneaker != null)
-                    return View(sneaker);
+                br.Create(sneaker, sneakerAll);
+                br.Save();
+                return RedirectToAction("Index");
             }
-            return NotFound();
+
+            return View(sneaker);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Delete(int id)
         {
-
-            if (id != null)
-            {
-                Models.Sneaker sneaker = await db.Sneakers.FirstOrDefaultAsync(p => p.SneakerId == id);
-                if (sneaker != null)
-                    return View(sneaker);
-            }
-            return NotFound();
+            Models.Sneaker sneaker = br.Get(id);
+            return View(sneaker);
         }
+
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Models.Sneaker sneaker)
-        {
-
-            db.Sneakers.Update(sneaker);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id != null)
             {
-                Models.Sneaker sneaker = await db.Sneakers.FirstOrDefaultAsync(p => p.SneakerId == id);
-                if (sneaker != null)
-                    return View(sneaker);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id != null)
-            {
-                Models.Sneaker sneaker = new Models.Sneaker { SneakerId = id.Value };
-                db.Entry(sneaker).State = EntityState.Deleted;
-                await db.SaveChangesAsync();
+                br.Delete(id);
+                br.Save();
                 return RedirectToAction("Index");
             }
             return NotFound();

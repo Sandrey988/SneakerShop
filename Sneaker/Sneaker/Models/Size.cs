@@ -8,6 +8,7 @@ namespace Sneaker.Models
     public class Size
     {
         public int SizeId { get; set; }
+        [Required]
         public float Number { get; set; }
         
         public List<ProductSize> SneakerSizes { get; set;}

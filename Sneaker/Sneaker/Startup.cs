@@ -33,6 +33,11 @@ namespace Sneaker
 
             services.AddTransient<IRepository<Brand>, BrandRepository>();
             services.AddTransient<IRepository<Category>, CategoryRepository>();
+            services.AddTransient<IRepository<Material>, MaterialRepository>();
+            services.AddTransient<ISneakerRepository<Models.Sneaker>, SneakerRepository>();
+            services.AddTransient<IImageRepository, ImgRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IRepository<Size>, SizeRepository>();
 
         }
 

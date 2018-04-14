@@ -8,99 +8,67 @@ using Sneaker.Models;
 using Sneaker.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Context;
+using Sneaker.Repositories.Interfaces;
 
 namespace Sneaker.Controllers.AdminControllers
 {
     public class ProductController : Controller
     {
-        private ModelContext db;
+        private readonly IProductRepository br;
 
-        public ProductController(ModelContext context)
+        public ProductController(IProductRepository productRepository)
         {
-            db = context;
+            br = productRepository;
+        }
+        public IActionResult Index()
+        {
+            return View(br.GetAll);
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return View(await db.Products.ToListAsync());
-        }
-
+        [HttpGet]
         public IActionResult Create()
         {
-            ProductSneaker productSneaker = new ProductSneaker
-            {
-                Sneakers = db.Sneakers.ToList()
-            };
-
+            ProductSneaker productSneaker = br.GetItemDb();
             return View(productSneaker);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductSneaker productSneaker, Product product)
+        public IActionResult Create(ProductSneaker productSneaker, Product product)
         {
             product.ProductName = productSneaker.Name;
             product.SneakerId = productSneaker.SelectSneaker;
             product.Amount = productSneaker.Amount;
             product.Price = productSneaker.Price;
-            db.Products.Add(product);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            if (ModelState.IsValid)
+            {
+                br.Create(product);
+                br.Save();
+                return RedirectToAction("Index");
+            }
+
+            return View(product);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id != null)
-            {
-                Product product = await db.Products.FirstOrDefaultAsync(p => p.ProductId == id);
-                if (product != null)
-                    return View(product);
-            }
-            return NotFound();
+            Product product = br.Get(id);
+            return View(product);
         }
 
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id != null)
-            {
-                Product product = await db.Products.FirstOrDefaultAsync(p => p.ProductId == id);
-                if (product != null)
-                    return View(product);
-            }
-            return NotFound();
-        }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Product product)
-        {
-            db.Products.Update(product);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id != null)
             {
-                Product product = await db.Products.FirstOrDefaultAsync(p => p.ProductId == id);
-                if (product != null)
-                    return View(product);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id != null)
-            {
-                Product product = new Product { ProductId = id.Value };
-                db.Entry(product).State = EntityState.Deleted;
-                await db.SaveChangesAsync();
+                br.Delete(id);
+                br.Save();
                 return RedirectToAction("Index");
             }
             return NotFound();
         }
+
+
     }
 }

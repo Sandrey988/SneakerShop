@@ -7,14 +7,14 @@ using Sneaker.ViewModel;
 
 namespace Sneaker.Repositories.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IImageRepository
     {
-        IEnumerable<T> GetAll { get; }
-        T Get(int id);
-        void Create(T item);
-        void Edit(T item);
+        IEnumerable<Img> GetAll { get; }
+        Img Get(int id);
+        void Create(Img item);
+        void Edit(Img item);
         void Delete(int? id);
         void Save();
-        
+        SneakerImg GetItemDb();
     }
 }

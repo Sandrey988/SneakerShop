@@ -18,10 +18,5 @@ namespace Sneaker.ViewModel
         public int SelectedCategory { get; set; }
         public int SelectedMaterial { get; set; }
         public int SelectedBrand { get; set; }
-
-        public static implicit operator SneakerAll(Models.Sneaker v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

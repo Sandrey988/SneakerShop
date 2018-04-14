@@ -8,97 +8,64 @@ using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
 using Sneaker.ViewModel;
 using Sneaker.Context;
+using Sneaker.Repositories.Interfaces;
 
 namespace Sneaker.Controllers.AdminControllers
 {
     public class ImgController : Controller
     {
-        private ModelContext db;
+        private readonly IImageRepository br;
 
-        public ImgController(ModelContext context)
+        public ImgController(IImageRepository imgRepository)
         {
-            db = context;
+            br = imgRepository;
+        }
+        public IActionResult Index()
+        {
+            return View(br.GetAll);
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return View(await db.Imgs.ToListAsync());
-        }
-
+        [HttpGet]
         public IActionResult Create()
         {
-            SneakerImg sneakerImg = new SneakerImg
-            {
-                Sneakers = db.Sneakers.ToList()
-            };
-
+            SneakerImg sneakerImg = br.GetItemDb();
             return View(sneakerImg);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(SneakerImg sneakerImg, Img img)
+        public IActionResult Create(Img img, SneakerImg sneakerImg)
         {
             img.ImgUrl = sneakerImg.UrlImage;
             img.SneakerId = sneakerImg.SelectSneaker;
-            db.Imgs.Add(img);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            if (ModelState.IsValid)
+            {
+                br.Create(img);
+                br.Save();
+                return RedirectToAction("Index");
+            }
+
+            return View(img);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id != null)
-            {
-                Img img = await db.Imgs.FirstOrDefaultAsync(p => p.Id == id);
-                if (img != null)
-                    return View(img);
-            }
-            return NotFound();
+            Img img = br.Get(id);
+            return View(img);
         }
 
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id != null)
-            {
-                Img img = await db.Imgs.FirstOrDefaultAsync(p => p.Id == id);
-                if (img != null)
-                    return View(img);
-            }
-            return NotFound();
-        }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Img img)
-        {
-            db.Imgs.Update(img);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id != null)
             {
-                Img img = await db.Imgs.FirstOrDefaultAsync(p => p.Id == id);
-                if (img != null)
-                    return View(img);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id != null)
-            {
-                Img img = new Img { Id = id.Value };
-                db.Entry(img).State = EntityState.Deleted;
-                await db.SaveChangesAsync();
+                br.Delete(id);
+                br.Save();
                 return RedirectToAction("Index");
             }
             return NotFound();
         }
+
     }
 }

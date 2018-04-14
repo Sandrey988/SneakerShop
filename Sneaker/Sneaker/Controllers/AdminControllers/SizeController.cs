@@ -8,21 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
 using Sneaker.ViewModel;
 using Sneaker.Context;
+using Sneaker.Repositories.Interfaces;
+
 
 namespace Sneaker.Controllers.AdminControllers
 {
     public class SizeController : Controller
     {
-        private ModelContext db;
+        private readonly IRepository<Size> br;
 
-        public SizeController(ModelContext context)
+        public SizeController(IRepository<Size> sizeRepository)
         {
-            db = context;
+            br = sizeRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public ViewResult Index()
         {
-            return View(await db.Sizes.ToListAsync());
+            return View(br.GetAll);
         }
 
         public IActionResult Create()
@@ -31,64 +33,51 @@ namespace Sneaker.Controllers.AdminControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Size size)
+        public IActionResult Create(Size size)
         {
-            db.Sizes.Add(size);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                br.Create(size);
+                br.Save();
+                return RedirectToAction("Index");
+            }
+
+            return View(size);
         }
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id != null)
-            {
-                Size size = await db.Sizes.FirstOrDefaultAsync(p => p.SizeId == id);
-                if (size != null)
-                    return View(size);
-            }
-            return NotFound();
-        }
 
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id != null)
-            {
-                Size size = await db.Sizes.FirstOrDefaultAsync(p => p.SizeId == id);
-                if (size != null)
-                    return View(size);
-            }
-            return NotFound();
+            Size size = br.Get(id);
+            return View(size);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Size size)
+        public IActionResult Edit(Size size)
         {
-            db.Sizes.Update(size);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                br.Edit(size);
+                br.Save();
+                return RedirectToAction("Index");
+            }
+            return View(size);
         }
 
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id != null)
-            {
-                Size size = await db.Sizes.FirstOrDefaultAsync(p => p.SizeId == id);
-                if (size != null)
-                    return View(size);
-            }
-            return NotFound();
+            Size size = br.Get(id);
+            return View(size);
         }
+
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id != null)
             {
-                Size size = new Size { SizeId = id.Value };
-                db.Entry(size).State = EntityState.Deleted;
-                await db.SaveChangesAsync();
+                br.Delete(id);
+                br.Save();
                 return RedirectToAction("Index");
             }
             return NotFound();

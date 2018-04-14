@@ -3,9 +3,9 @@ D:\Study\6_sem\CourseProject\Sneaker\Sneaker\bin\Debug\netcoreapp2.0\Sneaker.run
 D:\Study\6_sem\CourseProject\Sneaker\Sneaker\bin\Debug\netcoreapp2.0\Sneaker.runtimeconfig.dev.json
 D:\Study\6_sem\CourseProject\Sneaker\Sneaker\bin\Debug\netcoreapp2.0\Sneaker.dll
 D:\Study\6_sem\CourseProject\Sneaker\Sneaker\bin\Debug\netcoreapp2.0\Sneaker.pdb
-D:\Study\6_sem\CourseProject\Sneaker\Sneaker\obj\Debug\netcoreapp2.0\Sneaker.csprojResolveAssemblyReference.cache
 D:\Study\6_sem\CourseProject\Sneaker\Sneaker\obj\Debug\netcoreapp2.0\Sneaker.csproj.CoreCompileInputs.cache
 D:\Study\6_sem\CourseProject\Sneaker\Sneaker\obj\Debug\netcoreapp2.0\Sneaker.AssemblyInfoInputs.cache
 D:\Study\6_sem\CourseProject\Sneaker\Sneaker\obj\Debug\netcoreapp2.0\Sneaker.AssemblyInfo.cs
 D:\Study\6_sem\CourseProject\Sneaker\Sneaker\obj\Debug\netcoreapp2.0\Sneaker.dll
 D:\Study\6_sem\CourseProject\Sneaker\Sneaker\obj\Debug\netcoreapp2.0\Sneaker.pdb
+D:\Study\6_sem\CourseProject\Sneaker\Sneaker\obj\Debug\netcoreapp2.0\Sneaker.csprojResolveAssemblyReference.cache

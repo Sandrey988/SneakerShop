@@ -15,12 +15,11 @@ namespace Sneaker.Controllers.AdminControllers
 {
     public class MaterialController : Controller
     {
-
         private readonly IRepository<Material> br;
 
-        public MaterialController(IRepository<Material> materialRepository)
+        public MaterialController(IRepository<Material> categoryRepository)
         {
-            br = materialRepository;
+            br = categoryRepository;
         }
 
         public ViewResult Index()
@@ -28,60 +27,60 @@ namespace Sneaker.Controllers.AdminControllers
             return View(br.GetAll);
         }
 
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public IActionResult Create(Material material)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        br.Create(material);
-        //        br.Save();
-        //        return RedirectToAction("Index");
-        //    }
+        [HttpPost]
+        public IActionResult Create(Material material)
+        {
+            if (ModelState.IsValid)
+            {
+                br.Create(material);
+                br.Save();
+                return RedirectToAction("Index");
+            }
 
-        //    return View(material);
-        //}
-
-
-        //public IActionResult Edit(int id)
-        //{
-        //    Material material = br.Get(id);
-        //    return View(material);
-        //}
-
-        //[HttpPost]
-        //public IActionResult Edit(Material material)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        br.Edit(material);
-        //        br.Save();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(material);
-        //}
-
-        //public IActionResult Delete(int id)
-        //{
-        //    Material material = br.Get(id);
-        //    return View(material);
-        //}
+            return View(material);
+        }
 
 
-        //[HttpPost]
-        //public IActionResult Delete(int? id)
-        //{
-        //    if (id != null)
-        //    {
-        //        br.Delete(id);
-        //        br.Save();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return NotFound();
-        //}
+        public IActionResult Edit(int id)
+        {
+            Material material = br.Get(id);
+            return View(material);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Material material)
+        {
+            if (ModelState.IsValid)
+            {
+                br.Edit(material);
+                br.Save();
+                return RedirectToAction("Index");
+            }
+            return View(material);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            Material material = br.Get(id);
+            return View(material);
+        }
+
+
+        [HttpPost]
+        public IActionResult Delete(int? id)
+        {
+            if (id != null)
+            {
+                br.Delete(id);
+                br.Save();
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+        }
     }
 }
