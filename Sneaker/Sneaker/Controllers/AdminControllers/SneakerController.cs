@@ -35,14 +35,29 @@ namespace Sneaker.Controllers.AdminControllers
         [HttpPost]
         public IActionResult Create(Models.Sneaker sneaker, SneakerAll sneakerAll)
         {
+            if (string.IsNullOrEmpty(sneakerAll.Name))
+            {
+                ModelState.AddModelError("Name", "");
+            }
+            else if (string.IsNullOrEmpty(sneakerAll.Descriptions))
+            {
+                ModelState.AddModelError("Descriptions", "");
+            }
+
             if (ModelState.IsValid)
             {
-                br.Create(sneaker, sneakerAll);
+                sneaker.SneakerId = sneakerAll.Id;
+                sneaker.Description = sneakerAll.Descriptions;
+                sneaker.SneakerName = sneakerAll.Name;
+                sneaker.CategoryId = sneakerAll.SelectedCategory;
+                sneaker.MaterialId = sneakerAll.SelectedMaterial;
+                sneaker.BrandId = sneakerAll.SelectedBrand;
+                br.Create(sneaker);
                 br.Save();
                 return RedirectToAction("Index");
             }
 
-            return View(sneaker);
+            return View(sneakerAll);
         }
 
         public IActionResult Delete(int id)

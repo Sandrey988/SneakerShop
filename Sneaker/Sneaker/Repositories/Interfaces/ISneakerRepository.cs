@@ -10,7 +10,7 @@ namespace Sneaker.Repositories.Interfaces
     {
         IEnumerable<T> GetAll { get; } 
         T Get(int id);
-        void Create(T item, SneakerAll sneakerAll);
+        void Create(T item);
         void Edit(T item);
         void Delete(int? id);
         void Save();

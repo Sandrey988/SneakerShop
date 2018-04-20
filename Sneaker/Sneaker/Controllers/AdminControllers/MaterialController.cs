@@ -35,6 +35,15 @@ namespace Sneaker.Controllers.AdminControllers
         [HttpPost]
         public IActionResult Create(Material material)
         {
+            if (string.IsNullOrEmpty(material.MaterialName))
+            {
+                ModelState.AddModelError("MaterialName", "Некорректное имя");
+            }
+            else if (string.IsNullOrEmpty(material.Description))
+            {
+                ModelState.AddModelError("Description", "Некорректное описание");
+            }
+
             if (ModelState.IsValid)
             {
                 br.Create(material);

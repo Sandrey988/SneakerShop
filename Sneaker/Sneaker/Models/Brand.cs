@@ -8,6 +8,7 @@ namespace Sneaker.Models
 {
     public class Brand
     {
+        [Required]
         public int Id { get; set; }
 
         [MaxLength(50)]

@@ -26,9 +26,11 @@ namespace Sneaker.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("BrandName")
+                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(2000);
 
                     b.HasKey("Id");
@@ -42,9 +44,11 @@ namespace Sneaker.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CategoryName")
+                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(2000);
 
                     b.HasKey("Id");
@@ -57,7 +61,8 @@ namespace Sneaker.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ImgUrl");
+                    b.Property<string>("ImgUrl")
+                        .IsRequired();
 
                     b.Property<int>("SneakerId");
 
@@ -74,9 +79,11 @@ namespace Sneaker.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(2000);
 
                     b.Property<string>("MaterialName")
+                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -94,6 +101,7 @@ namespace Sneaker.Migrations
                     b.Property<decimal>("Price");
 
                     b.Property<string>("ProductName")
+                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<int>("SneakerId");
@@ -140,11 +148,13 @@ namespace Sneaker.Migrations
                     b.Property<int>("CategoryId");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(2000);
 
                     b.Property<int>("MaterialId");
 
                     b.Property<string>("SneakerName")
+                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.HasKey("SneakerId");

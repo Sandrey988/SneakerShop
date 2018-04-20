@@ -1,6 +1,98 @@
-﻿<head>
-    <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
-    <link href="@Url.Content("~/html/Header.html")" rel="stylesheet" type="text/css" />
-    @RenderSection("head", false)
+﻿<html>
+<head>
+    <link rel="stylesheet" href="~/css/header.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 </head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">SneakerShop</a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <div class="dropdown  mr-lg-auto mt-lg-auto ml-4">
+                    <button class="btn btn-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+                        Бренды
+                    </button>
+                    <div class="dropdown-menu badge-dark border-dark" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item text-light" href="#">Adidas</a>
+                        <a class="dropdown-item text-light" href="#">Asics</a>
+                        <a class="dropdown-item text-light" href="#">New Balance</a>
+                    </div>
+                </div>
+
+                <ul class="navbar-nav mr-lg-left mr-3 mt-lg-auto ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#authmodal">Войти</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav mr-lg-left mr-5 mt-lg-auto ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Регистрация</a>
+                    </li>
+                </ul>
+
+                <a href="#" class="navbar-brand mr-5">
+                    <img src="~/icons/shopping-cart.svg" width="30" height="30" alt="shopping" />
+                </a>
+
+                @* Modal auth *@
+                <div class="modal fade" id="authmodal" tabindex="-1" role="dialog"
+                     aria-labelledby="authmodal" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="authmodalLabel">Авторизация</h4>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="authEmail">Email</label>
+                                            <input type="email" class="form-control" id="authEmail"
+                                                   aria-describedby="emailHelp" placeholder="Enter email" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="authPass">Password</label>
+                                            <input type="password" class="form-control" id="authPass"
+                                                   placeholder="Enter password" />
+                                        </div>
+                                        <button class="btn btn-primary btn-success" type="submit">Войти</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+                    <a href="#" class="navbar-brand ml-2">
+                        <img src="~/icons/search.svg" width="30" height="30" alt="shopping" />
+                    </a>
+                </form>
+
+
+            </div>
+        </nav>
+    </header>
+    @RenderBody()
+        @RenderBody()
+        @*<footer>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+                <label class="navbar-brand m-auto">2018</label>
+            </nav> 
+            
+        </footer>*@
+
+    
+</body>
+</html>

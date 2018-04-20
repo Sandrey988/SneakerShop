@@ -8,12 +8,14 @@ namespace Sneaker.Models
 {
     public class ProductSize
     {
+        [Required]
         public int ProductId { get; set; }
         [Required]
         public Product Product { get; set; }
 
         [Required]
         public int SizeId { get; set; }
+
         public Size Size { get; set; }
     }
 }

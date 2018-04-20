@@ -20,14 +20,8 @@ namespace Sneaker.Repositories
 
         public IEnumerable<Models.Sneaker> GetAll => db.Sneakers;
 
-        public void Create(Models.Sneaker sneaker, SneakerAll sneakerAll)
+        public void Create(Models.Sneaker sneaker)
         {
-            sneaker.SneakerId = sneakerAll.Id;
-            sneaker.Description = sneakerAll.Descriptions;
-            sneaker.SneakerName = sneakerAll.Name;
-            sneaker.CategoryId = sneakerAll.SelectedCategory;
-            sneaker.MaterialId = sneakerAll.SelectedMaterial;
-            sneaker.BrandId = sneakerAll.SelectedBrand;
             db.Sneakers.Add(sneaker);
         }
 

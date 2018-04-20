@@ -33,6 +33,16 @@ namespace Sneaker.Controllers.AdminControllers
         [HttpPost]
         public IActionResult Create(Brand brand)
         {
+            if (string.IsNullOrEmpty(brand.BrandName))
+            {
+                ModelState.AddModelError("BrandName", "Некорректное имя");
+            }
+            else if (string.IsNullOrEmpty(brand.Description))
+            {
+                ModelState.AddModelError("Description", "Некорректное описание");
+            }
+
+
             if (ModelState.IsValid)
             {
                 br.Create(brand);

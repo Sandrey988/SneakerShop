@@ -34,6 +34,15 @@ namespace Sneaker.Controllers.AdminControllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
+            if (string.IsNullOrEmpty(category.CategoryName))
+            {
+                ModelState.AddModelError("CategoryName", "Некорректное имя");
+            }
+            else if (string.IsNullOrEmpty(category.Description))
+            {
+                ModelState.AddModelError("Description", "Некорректное описание");
+            }
+
             if (ModelState.IsValid)
             {
                 br.Create(category);
@@ -43,7 +52,6 @@ namespace Sneaker.Controllers.AdminControllers
 
             return View(category);
         }
-
 
         public IActionResult Edit(int id)
         {

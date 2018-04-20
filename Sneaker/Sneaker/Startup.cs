@@ -38,7 +38,7 @@ namespace Sneaker
             services.AddTransient<IImageRepository, ImgRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IRepository<Size>, SizeRepository>();
-
+            services.AddTransient<IProductViewRepository, ProductViewRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
