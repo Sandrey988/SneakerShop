@@ -20,6 +20,7 @@ namespace Sneaker.Controllers.AdminControllers
             br = brandRepository;
         }
 
+
         public ViewResult Index()
         {
             return View(br.GetAll);
