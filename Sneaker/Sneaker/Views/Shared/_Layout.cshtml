@@ -1,6 +1,7 @@
 ﻿<html>
 <head>
-    <link rel="stylesheet" href="~/css/header.css" />
+
+
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -18,9 +19,16 @@
                         Бренды
                     </button>
                     <div class="dropdown-menu badge-dark border-dark" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item text-light" href="#">Adidas</a>
-                        <a class="dropdown-item text-light" href="#">Asics</a>
-                        <a class="dropdown-item text-light" href="#">New Balance</a>
+                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="1">Adidas</a>
+                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="5">Asics</a>
+                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="6">New Balance</a>
+                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="2">Nike</a>
+                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="7">Karhu</a>
+                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="8">Puma</a>
+                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="9">Reebok</a>
+                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="10">Vans</a>
+
+
                     </div>
                 </div>
 
@@ -32,7 +40,7 @@
 
                 <ul class="navbar-nav mr-lg-left mr-5 mt-lg-auto ">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Регистрация</a>
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#registrationmodal">Регистрация</a>
                     </li>
                 </ul>
 
@@ -46,7 +54,7 @@
                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="authmodalLabel">Авторизация</h4>
+                                <h4 class="modal-title mr-5" id="authmodalLabel">Авторизация</h4>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -64,7 +72,7 @@
                                             <input type="password" class="form-control" id="authPass"
                                                    placeholder="Enter password" />
                                         </div>
-                                        <button class="btn btn-primary btn-success" type="submit">Войти</button>
+                                        <button class="btn btn-primary btn-success " type="submit">Войти</button>
                                     </form>
                                 </div>
 
@@ -72,6 +80,52 @@
                         </div>
                     </div>
                 </div>
+                @* Modal Registration *@
+                <div class="modal fade" id="registrationmodal" tabindex="-1" role="dialog"
+                     aria-labelledby="authmodal" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title mr-5" id="authmodalLabel">Регистрация</h4>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="authEmail">Login</label>
+                                            <input type="text" class="form-control" id="authLogin"
+                                                   aria-describedby="" placeholder="Enter login" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="authPass">Password</label>
+                                            <input type="password" class="form-control" id="authPass"
+                                                   placeholder="Enter password" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="authPass">Confirm password</label>
+                                            <input type="password" class="form-control" id="authPass"
+                                                   placeholder="Enter password" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="authEmail">Email</label>
+                                            <input type="email" class="form-control" id="authEmail"
+                                                   aria-describedby="emailHelp" placeholder="Enter email" />
+                                        </div>
+
+                                        <button class="btn btn-primary btn-success " type="submit">Зарегистрироваться</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">

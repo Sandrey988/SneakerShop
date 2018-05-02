@@ -1,16 +1,21 @@
 ﻿@model IEnumerable<Sneaker.ViewModel.ProductView>
 @{
+<html>
+    <head>
+        <title>@Model.FirstOrDefault().Name</title>
+    </head>
+    <body>
+        <div class="">
+            <img src="@Model.FirstOrDefault().UrlImage" height="600" width="600" />
+            <p>  @Model.FirstOrDefault().Name</p>
+            <p>Количество @Model.FirstOrDefault().Amount</p>
+            <p>Бренд @Model.FirstOrDefault().BrandName</p>
+            <p>Категория @Model.FirstOrDefault().CategoryName</p>
+            <p>Описание @Model.FirstOrDefault().Description</p>
+            <p>Материал @Model.FirstOrDefault().MaterialName</p>
+            <p>Цена @Model.FirstOrDefault().Price</p>
 
-<div>
-    <img src="@Model.FirstOrDefault().UrlImage" height="278" width="278" />
-    <p>@Model.FirstOrDefault().Name</p>
-    <p>@Model.FirstOrDefault().Amount</p>
-    <p>@Model.FirstOrDefault().BrandName</p>
-    <p>@Model.FirstOrDefault().CategoryName</p>
-    <p>@Model.FirstOrDefault().Description</p>
-    <p>@Model.FirstOrDefault().MaterialName</p>
-    <p>@Model.FirstOrDefault().Price</p>
-
-</div>
-
+        </div>
+    </body>
+</html>
 }

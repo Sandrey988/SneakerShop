@@ -8,11 +8,15 @@ using Sneaker.Models;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Context;
 using Sneaker.Repositories.Interfaces;
+using Sneaker.Services;
 
 namespace Sneaker.Controllers.AdminControllers
 {
     public class BrandController : Controller
     {
+
+
+
         private readonly IRepository<Brand> br;
 
         public BrandController(IRepository<Brand> brandRepository)
@@ -21,29 +25,19 @@ namespace Sneaker.Controllers.AdminControllers
         }
 
 
-        public ViewResult Index()
+        public async Task<IActionResult> Index()
         {
             return View(br.GetAll);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Brand brand)
+        public async Task<IActionResult> Create(Brand brand)
         {
-            if (string.IsNullOrEmpty(brand.BrandName))
-            {
-                ModelState.AddModelError("BrandName", "Некорректное имя");
-            }
-            else if (string.IsNullOrEmpty(brand.Description))
-            {
-                ModelState.AddModelError("Description", "Некорректное описание");
-            }
-
-
             if (ModelState.IsValid)
             {
                 br.Create(brand);
@@ -55,14 +49,14 @@ namespace Sneaker.Controllers.AdminControllers
         }
 
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             Brand brand = br.Get(id);
             return View(brand);
         }
 
         [HttpPost]
-        public IActionResult Edit(Brand brand)
+        public async Task<IActionResult> Edit(Brand brand)
         {
             if (ModelState.IsValid)
             {
@@ -73,14 +67,14 @@ namespace Sneaker.Controllers.AdminControllers
             return View(brand);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             Brand brand = br.Get(id);
             return View(brand);
         }
 
         [HttpPost]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id != null)
             {

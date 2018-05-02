@@ -22,18 +22,18 @@ namespace Sneaker.Controllers.AdminControllers
             br = sizeRepository;
         }
 
-        public ViewResult Index()
+        public async Task<ViewResult> Index()
         {
             return View(br.GetAll);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Size size)
+        public async Task<IActionResult> Create(Size size)
         {
             if (ModelState.IsValid)
             {
@@ -46,14 +46,14 @@ namespace Sneaker.Controllers.AdminControllers
         }
 
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             Size size = br.Get(id);
             return View(size);
         }
 
         [HttpPost]
-        public IActionResult Edit(Size size)
+        public async Task<IActionResult> Edit(Size size)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace Sneaker.Controllers.AdminControllers
             return View(size);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             Size size = br.Get(id);
             return View(size);
@@ -72,7 +72,7 @@ namespace Sneaker.Controllers.AdminControllers
 
 
         [HttpPost]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id != null)
             {

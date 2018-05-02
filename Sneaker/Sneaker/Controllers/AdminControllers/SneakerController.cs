@@ -20,29 +20,21 @@ namespace Sneaker.Controllers.AdminControllers
         {
             br = sneakerRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View(br.GetAll);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             SneakerAll sneakerAll = br.GetItemDb();
             return View(sneakerAll);
         }
 
         [HttpPost]
-        public IActionResult Create(Models.Sneaker sneaker, SneakerAll sneakerAll)
+        public async Task<IActionResult> Create(Models.Sneaker sneaker, SneakerAll sneakerAll)
         {
-            if (string.IsNullOrEmpty(sneakerAll.Name))
-            {
-                ModelState.AddModelError("Name", "");
-            }
-            else if (string.IsNullOrEmpty(sneakerAll.Descriptions))
-            {
-                ModelState.AddModelError("Descriptions", "");
-            }
 
             if (ModelState.IsValid)
             {
@@ -60,15 +52,14 @@ namespace Sneaker.Controllers.AdminControllers
             return View(sneakerAll);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             Models.Sneaker sneaker = br.Get(id);
             return View(sneaker);
         }
 
-
         [HttpPost]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id != null)
             {

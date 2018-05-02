@@ -6,22 +6,34 @@ using Sneaker.Context;
 using Sneaker.Models;
 using Sneaker.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Sneaker.Services;
+using Sneaker.Services.Interfaces;
 
 namespace Sneaker.Repositories
 {
     public class BrandRepository : IRepository<Brand>
     {
-        private readonly ModelContext db;
+        private ModelContext db;
+        private DbSet<Brand> dbset;
+
         public BrandRepository(ModelContext model)
         {
             db = model;
         }
 
-        public IEnumerable<Brand> GetAll => db.Brands;
+        public IEnumerable<Brand> GetAll =>  db.Brands;
+
+
+        public void SetStorageContext(IStorageContext storageContext)
+        {
+            db = storageContext as ModelContext;
+            dbset = db.Set<Brand>();
+
+        }
 
         public void Create(Brand brand)
         {
-            db.Brands.Add(brand);
+             db.Brands.Add(brand);
         }
 
         public void Delete(int? id)

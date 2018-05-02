@@ -20,28 +20,20 @@ namespace Sneaker.Controllers.AdminControllers
             br = categoryRepository;
         }
 
-        public ViewResult Index()
+        public async Task<ViewResult> Index()
         {
             return View(br.GetAll);
         }
 
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Category category)
+        public async Task<IActionResult> Create(Category category)
         {
-            if (string.IsNullOrEmpty(category.CategoryName))
-            {
-                ModelState.AddModelError("CategoryName", "Некорректное имя");
-            }
-            else if (string.IsNullOrEmpty(category.Description))
-            {
-                ModelState.AddModelError("Description", "Некорректное описание");
-            }
 
             if (ModelState.IsValid)
             {
@@ -53,14 +45,14 @@ namespace Sneaker.Controllers.AdminControllers
             return View(category);
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             Category category = br.Get(id);
             return View(category);
         }
 
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public async Task<IActionResult> Edit(Category category)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +63,7 @@ namespace Sneaker.Controllers.AdminControllers
             return View(category);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             Category category = br.Get(id);
             return View(category);
@@ -79,14 +71,14 @@ namespace Sneaker.Controllers.AdminControllers
 
 
         [HttpPost]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id != null)
             {
                 br.Delete(id);
                 br.Save();
                 return RedirectToAction("Index");
-            }   
+            }
             return NotFound();
         }
     }

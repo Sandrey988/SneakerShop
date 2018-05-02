@@ -22,27 +22,19 @@ namespace Sneaker.Controllers.AdminControllers
             br = categoryRepository;
         }
 
-        public ViewResult Index()
+        public async Task<ViewResult> Index()
         {
             return View(br.GetAll);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Material material)
+        public async Task<IActionResult> Create(Material material)
         {
-            if (string.IsNullOrEmpty(material.MaterialName))
-            {
-                ModelState.AddModelError("MaterialName", "Некорректное имя");
-            }
-            else if (string.IsNullOrEmpty(material.Description))
-            {
-                ModelState.AddModelError("Description", "Некорректное описание");
-            }
 
             if (ModelState.IsValid)
             {
@@ -55,14 +47,14 @@ namespace Sneaker.Controllers.AdminControllers
         }
 
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             Material material = br.Get(id);
             return View(material);
         }
 
         [HttpPost]
-        public IActionResult Edit(Material material)
+        public async Task<IActionResult> Edit(Material material)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +65,7 @@ namespace Sneaker.Controllers.AdminControllers
             return View(material);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             Material material = br.Get(id);
             return View(material);
@@ -81,7 +73,7 @@ namespace Sneaker.Controllers.AdminControllers
 
 
         [HttpPost]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id != null)
             {

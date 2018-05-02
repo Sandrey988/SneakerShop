@@ -15,6 +15,5 @@ namespace Sneaker.Repositories.Interfaces
         void Edit(T item);
         void Delete(int? id);
         void Save();
-        
     }
 }

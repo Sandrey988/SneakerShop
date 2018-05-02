@@ -14,68 +14,81 @@ namespace Sneaker.Controllers.AdminControllers
 {
     public class ProductViewController : Controller
     {
-        private readonly IProductViewRepository br;
 
-        public ProductViewController(IProductViewRepository prViewRepository)
+        private readonly ModelContext db;
+
+        public ProductViewController(ModelContext modelContext)
         {
-            br = prViewRepository;
+            db = modelContext;
         }
 
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id, int page = 1)
         {
+            int pageSize = 4; // количество элементов на странице
+
+            IQueryable<Product> source = db.Products.Include(x => x.Sneaker);
+
+            var count = await source.CountAsync();
+            var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+
+
 
             List<Models.Sneaker> sneakers = new List<Models.Sneaker>();
-            //sneakers = db.Sneakers.Where(x => x.BrandId == id).ToList();
-            //List<Product> products = new List<Product>();
+            sneakers = db.Sneakers.Where(x => x.BrandId == id).ToList();
+            List<Product> products = new List<Product>();
+            List<ProductView> productsView = new List<ProductView>();
 
+          
 
-            //List<ProductView> productsView = new List<ProductView>();
+            int sneakerId = 0;
+            foreach (var sneaker in sneakers)
+            {
+                sneakerId = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerId;
+                productsView.Add(new ProductView
+                {
+                    Id = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().ProductId,
+                    BrandName = db.Brands.Where(x => x.Id == sneaker.BrandId).FirstOrDefault().BrandName,
+                    Name = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerName,
+                    Price = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().Price,
+                    UrlImage = db.Imgs.Where(x => x.SneakerId == sneakerId).FirstOrDefault().ImgUrl,
+                    Products = items,
+                    PageViewModels = pageViewModel
+                });
+            }
 
-            //int sneakerId = 0;
-            //foreach (var sneaker in sneakers)
-            //{
-            //    sneakerId = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerId;
-            //    productsView.Add(new ProductView
-            //    {
-            //        Id = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().ProductId,
-            //        Name = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerName,
-            //        Price = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().Price,
-            //        UrlImage = db.Imgs.Where(x => x.SneakerId == sneakerId).FirstOrDefault().ImgUrl
-            //    });
-            //}
-
-            return View();
+            return View(productsView);
         }
 
-        //public IActionResult Details(int? id)
-        //{
-        //   List<ProductView> productView = new List<ProductView>();
-        //    if (id != null)
-        //    {
-        //        Product product = db.Products.FirstOrDefault(x=> x.ProductId == id);
-        //        Models.Sneaker sneaker = db.Sneakers.FirstOrDefault(x=> x.SneakerId == product.SneakerId);
-        //        Img img = db.Imgs.FirstOrDefault(x=> x.SneakerId == product.SneakerId);
-        //        Brand brand = db.Brands.FirstOrDefault(x => x.Id == sneaker.BrandId);
-        //        Material material = db.Materials.FirstOrDefault(x => x.Id == sneaker.MaterialId);
-        //        Category category = db.Categories.FirstOrDefault(x => x.Id == sneaker.CategoryId);
-        //        productView.Add(new ProductView
-        //        {
-        //            Id = product.ProductId,
-        //            Name = sneaker.SneakerName,
-        //            Amount = product.Amount,
-        //            UrlImage = img.ImgUrl,
-        //            Price = product.Price,
-        //            Description = sneaker.Description,
-        //            BrandName = brand.BrandName,
-        //            CategoryName = category.CategoryName,
-        //            MaterialName = material.MaterialName
+        public async Task<IActionResult> Details(int? id)
+        {
+            List<ProductView> productView = new List<ProductView>();
+            if (id != null)
+            {
+                Product product = db.Products.FirstOrDefault(x => x.ProductId == id);
+                Models.Sneaker sneaker = db.Sneakers.FirstOrDefault(x => x.SneakerId == product.SneakerId);
+                Img img = db.Imgs.FirstOrDefault(x => x.SneakerId == product.SneakerId);
+                Brand brand = db.Brands.FirstOrDefault(x => x.Id == sneaker.BrandId);
+                Material material = db.Materials.FirstOrDefault(x => x.Id == sneaker.MaterialId);
+                Category category = db.Categories.FirstOrDefault(x => x.Id == sneaker.CategoryId);
+                productView.Add(new ProductView
+                {
+                    Id = product.ProductId,
+                    Name = sneaker.SneakerName,
+                    Amount = product.Amount,
+                    UrlImage = img.ImgUrl,
+                    Price = product.Price,
+                    Description = sneaker.Description,
+                    BrandName = brand.BrandName,
+                    CategoryName = category.CategoryName,
+                    MaterialName = material.MaterialName
 
-        //        });
-        //        if (productView != null)
-        //            return View(productView);
-        //    }
-        //    return NotFound();
-        //}
+                });
+                if (productView != null)
+                    return View(productView);
+            }
+            return NotFound();
+        }
 
     }
 }

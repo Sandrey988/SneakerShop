@@ -26,14 +26,14 @@ namespace Sneaker.Controllers.AdminControllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             SneakerImg sneakerImg = br.GetItemDb();
             return View(sneakerImg);
         }
 
         [HttpPost]
-        public IActionResult Create(Img img, SneakerImg sneakerImg)
+        public async Task<IActionResult> Create(Img img, SneakerImg sneakerImg)
         {
             img.ImgUrl = sneakerImg.UrlImage;
             img.SneakerId = sneakerImg.SelectSneaker;
@@ -48,7 +48,7 @@ namespace Sneaker.Controllers.AdminControllers
             return View(img);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             Img img = br.Get(id);
             return View(img);
@@ -56,7 +56,7 @@ namespace Sneaker.Controllers.AdminControllers
 
 
         [HttpPost]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id != null)
             {

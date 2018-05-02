@@ -20,20 +20,20 @@ namespace Sneaker.Controllers.AdminControllers
         {
             br = productRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View(br.GetAll);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ProductSneaker productSneaker = br.GetItemDb();
             return View(productSneaker);
         }
 
         [HttpPost]
-        public IActionResult Create(ProductSneaker productSneaker, Product product)
+        public async Task<IActionResult> Create(ProductSneaker productSneaker, Product product)
         {
             product.ProductName = productSneaker.Name;
             product.SneakerId = productSneaker.SelectSneaker;
@@ -50,7 +50,7 @@ namespace Sneaker.Controllers.AdminControllers
             return View(product);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             Product product = br.Get(id);
             return View(product);
@@ -58,7 +58,7 @@ namespace Sneaker.Controllers.AdminControllers
 
 
         [HttpPost]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id != null)
             {

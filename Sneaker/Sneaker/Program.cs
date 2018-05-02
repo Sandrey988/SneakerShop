@@ -22,5 +22,6 @@ namespace Sneaker
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
+        
     }
 }

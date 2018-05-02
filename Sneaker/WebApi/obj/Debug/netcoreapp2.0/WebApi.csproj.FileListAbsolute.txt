@@ -3,9 +3,9 @@ D:\Study\6_sem\CourseProject\Sneaker\WebApi\bin\Debug\netcoreapp2.0\WebApi.runti
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\bin\Debug\netcoreapp2.0\WebApi.runtimeconfig.dev.json
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\bin\Debug\netcoreapp2.0\WebApi.dll
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\bin\Debug\netcoreapp2.0\WebApi.pdb
-D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.csprojResolveAssemblyReference.cache
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.csproj.CoreCompileInputs.cache
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfoInputs.cache
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfo.cs
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.dll
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.pdb
+D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.csprojResolveAssemblyReference.cache

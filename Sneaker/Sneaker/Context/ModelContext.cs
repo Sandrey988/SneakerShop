@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
 using Sneaker.ViewModel;
+using Sneaker.Services.Interfaces;
 
 namespace Sneaker.Context
 {
-    public class ModelContext : DbContext
+    public class ModelContext : DbContext , IStorageContext
     {
         public DbSet<Models.Sneaker> Sneakers { get; set; }
         public DbSet<Material> Materials { get; set; }
@@ -20,7 +21,7 @@ namespace Sneaker.Context
 
         public ModelContext(DbContextOptions<ModelContext> options)
             : base(options) { }
-
+            
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

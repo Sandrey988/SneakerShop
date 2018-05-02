@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Routing;
 using Sneaker.Context;
 using Sneaker.Repositories;
 using Sneaker.Repositories.Interfaces;
+using Sneaker.Services;
 
 namespace Sneaker
 {
@@ -31,7 +32,8 @@ namespace Sneaker
             services.AddDbContext<ModelContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
 
-            services.AddTransient<IRepository<Brand>, BrandRepository>();
+            services.AddScoped(typeof(IStorage), typeof(Storage));
+            //services.AddTransient<IRepository<Brand>, BrandRepository>();
             services.AddTransient<IRepository<Category>, CategoryRepository>();
             services.AddTransient<IRepository<Material>, MaterialRepository>();
             services.AddTransient<ISneakerRepository<Models.Sneaker>, SneakerRepository>();
