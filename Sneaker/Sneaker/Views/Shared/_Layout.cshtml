@@ -32,6 +32,17 @@
                     </div>
                 </div>
 
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+                    <a href="#" class="navbar-brand ml-2">
+                        <img src="~/icons/search.svg" width="20" height="20" alt="shopping" />
+                    </a>
+                </form>
+
+                <a href="#" class="navbar-brand mr-5 ml-3">
+                    <img src="~/icons/shopping-cart.svg" width="30" height="30" alt="shopping" />
+                </a>
+
                 <ul class="navbar-nav mr-lg-left mr-3 mt-lg-auto ">
                     <li class="nav-item active">
                         <a class="nav-link" href="#" data-toggle="modal" data-target="#authmodal">Войти</a>
@@ -44,9 +55,6 @@
                     </li>
                 </ul>
 
-                <a href="#" class="navbar-brand mr-5">
-                    <img src="~/icons/shopping-cart.svg" width="30" height="30" alt="shopping" />
-                </a>
 
                 @* Modal auth *@
                 <div class="modal fade" id="authmodal" tabindex="-1" role="dialog"
@@ -127,13 +135,20 @@
                 </div>
 
 
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
-                    <a href="#" class="navbar-brand ml-2">
-                        <img src="~/icons/search.svg" width="30" height="30" alt="shopping" />
-                    </a>
-                </form>
 
+                @if (User.Identity.IsAuthenticated)
+    {
+            <p>@User.Identity.Name</p>
+
+            <form method="post" asp-controller="Account" asp-action="LogOff">
+                <input type="submit" value="Выход" />
+            </form>
+}
+else
+{
+            <a asp-controller="Account" asp-action="Login">Вход</a>
+            <a asp-controller="Account" asp-action="Register">Регистрация</a>
+}
 
             </div>
         </nav>

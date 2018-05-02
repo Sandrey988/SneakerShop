@@ -14,6 +14,7 @@ using Sneaker.Context;
 using Sneaker.Repositories;
 using Sneaker.Repositories.Interfaces;
 using Sneaker.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace Sneaker
 {
@@ -30,6 +31,7 @@ namespace Sneaker
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ModelContext>(options => options.UseSqlServer(connection));
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ModelContext>();
             services.AddMvc();
 
             services.AddScoped(typeof(IStorage), typeof(Storage));
@@ -46,7 +48,8 @@ namespace Sneaker
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseStaticFiles();
-            
+            app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
 

@@ -6,10 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
 using Sneaker.ViewModel;
 using Sneaker.Services.Interfaces;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Sneaker.Context
 {
-    public class ModelContext : DbContext , IStorageContext
+    public class ModelContext : IdentityDbContext<User>
     {
         public DbSet<Models.Sneaker> Sneakers { get; set; }
         public DbSet<Material> Materials { get; set; }
@@ -40,6 +41,11 @@ namespace Sneaker.Context
                 .HasOne(pt => pt.Size)
                 .WithMany(p => p.SneakerSizes)
                 .HasForeignKey(pt => pt.SizeId);
+
+
+            base.OnModelCreating(modelBuilder);
         }
+
+
     }
 }

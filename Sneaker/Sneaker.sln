@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sneaker", "Sneaker\Sneaker.csproj", "{43A1F847-7C48-4E4F-999C-4F2DA53E2BE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{53052452-0D1C-472C-BED8-C5FC2F117744}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{53052452-0D1C-472C-BED8-C5FC2F117744}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
