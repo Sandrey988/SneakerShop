@@ -8,14 +8,14 @@ namespace Sneaker.ViewModel
 {
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "Email")]
+        [EmailAddress]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
         public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "Год рождения")]
-        public int Year { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

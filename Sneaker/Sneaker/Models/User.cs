@@ -6,8 +6,5 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Sneaker.Models
 {
-    public class User : IdentityUser
-    {
-        public int Year { get; set; }
-    }
+    public class User : IdentityUser {}
 }

@@ -43,20 +43,42 @@
                     <img src="~/icons/shopping-cart.svg" width="30" height="30" alt="shopping" />
                 </a>
 
-                <ul class="navbar-nav mr-lg-left mr-3 mt-lg-auto ">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#authmodal">Войти</a>
-                    </li>
-                </ul>
 
-                <ul class="navbar-nav mr-lg-left mr-5 mt-lg-auto ">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#registrationmodal">Регистрация</a>
-                    </li>
-                </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+
+                    <ul class="navbar-nav mr-lg-left mr-3 mt-lg-0">
+                        <li class="nav-item active">
+                            <p class="text-light"> @User.Identity.Name </p>
+                        </li>
+                    </ul>
 
 
-                @* Modal auth *@
+                    <form  class="form-inline my-2 my-lg-0" method="post" asp-controller="Account" asp-action="LogOff">
+                        
+                        <ul class="navbar-nav mr-lg-left mr-3 mt-lg-auto ">
+                            <li class="nav-item active">
+                                <input class="btn btn-light " type="submit" value="Выход"/>
+                            </li>
+                        </ul>
+                        
+                    </form>
+                }
+                else
+                {
+                    <ul class="navbar-nav mr-lg-left mr-3 mt-lg-auto ">
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">Войти</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav mr-lg-left mr-5 mt-lg-auto ">
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="Account" asp-action="Register">Регистрация</a>
+                        </li>
+                    </ul>
+                }
+                <!-- #region Test -->
                 <div class="modal fade" id="authmodal" tabindex="-1" role="dialog"
                      aria-labelledby="authmodal" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
@@ -88,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-                @* Modal Registration *@
+
                 <div class="modal fade" id="registrationmodal" tabindex="-1" role="dialog"
                      aria-labelledby="authmodal" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
@@ -133,35 +155,12 @@
                         </div>
                     </div>
                 </div>
-
-
-
-                @if (User.Identity.IsAuthenticated)
-    {
-            <p>@User.Identity.Name</p>
-
-            <form method="post" asp-controller="Account" asp-action="LogOff">
-                <input type="submit" value="Выход" />
-            </form>
-}
-else
-{
-            <a asp-controller="Account" asp-action="Login">Вход</a>
-            <a asp-controller="Account" asp-action="Register">Регистрация</a>
-}
-
+                <!-- #endregion -->
             </div>
         </nav>
     </header>
     @RenderBody()
         @RenderBody()
-        @*<footer>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-                <label class="navbar-brand m-auto">2018</label>
-            </nav> 
-            
-        </footer>*@
-
-    
+        
 </body>
 </html>
