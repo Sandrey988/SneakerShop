@@ -9,9 +9,12 @@ using Sneaker.Models;
 using Sneaker.ViewModel;
 using Sneaker.Context;
 using Sneaker.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Sneaker.Controllers.AdminControllers
+namespace Sneaker.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "admin")]
     public class SneakerController : Controller
     {
         private readonly ISneakerRepository<Models.Sneaker> br;

@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Sneaker.Models;
 using Sneaker.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Sneaker.Controllers
+namespace Sneaker.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
         UserManager<User> _userManager;

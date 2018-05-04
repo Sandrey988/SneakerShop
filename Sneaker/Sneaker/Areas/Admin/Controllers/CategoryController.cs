@@ -4,71 +4,74 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Sneaker.Models;
 using Microsoft.EntityFrameworkCore;
+using Sneaker.Models;
 using Sneaker.Context;
 using Sneaker.Repositories.Interfaces;
-using Sneaker.Services;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Sneaker.Controllers.AdminControllers
+namespace Sneaker.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BrandController : Controller
+    [Authorize(Roles = "admin")]
+    public class CategoryController : Controller
     {
-        private readonly IRepository<Brand> br;
+        private readonly IRepository<Category> br;
 
-        public BrandController(IRepository<Brand> brandRepository)
+        public CategoryController(IRepository<Category> categoryRepository)
         {
-            br = brandRepository;
+            br = categoryRepository;
         }
-        [Route("[area]/[controller]/[action]")]
-        public IActionResult Index()
+
+        public async Task<ViewResult> Index()
         {
             return View(br.GetAll);
         }
 
-        public IActionResult Create()
+
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Brand brand)
+        public async Task<IActionResult> Create(Category category)
         {
+
             if (ModelState.IsValid)
             {
-                br.Create(brand);
+                br.Create(category);
                 br.Save();
                 return RedirectToAction("Index");
             }
 
-            return View(brand);
+            return View(category);
         }
-
 
         public async Task<IActionResult> Edit(int id)
         {
-            Brand brand = br.Get(id);
-            return View(brand);
+            Category category = br.Get(id);
+            return View(category);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Brand brand)
+        public async Task<IActionResult> Edit(Category category)
         {
             if (ModelState.IsValid)
             {
-                br.Edit(brand);
+                br.Edit(category);
                 br.Save();
                 return RedirectToAction("Index");
             }
-            return View(brand);
+            return View(category);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            Brand brand = br.Get(id);
-            return View(brand);
+            Category category = br.Get(id);
+            return View(category);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)

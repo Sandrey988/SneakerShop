@@ -6,18 +6,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
+using Sneaker.ViewModel;
 using Sneaker.Context;
 using Sneaker.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Sneaker.Controllers.AdminControllers
+namespace Sneaker.Areas.Admin.Controllers
 {
-    public class CategoryController : Controller
+    [Area("Admin")]
+    [Authorize(Roles = "admin")]
+    public class SizeController : Controller
     {
-        private readonly IRepository<Category> br;
+        private readonly IRepository<Size> br;
 
-        public CategoryController(IRepository<Category> categoryRepository)
+        public SizeController(IRepository<Size> sizeRepository)
         {
-            br = categoryRepository;
+            br = sizeRepository;
         }
 
         public async Task<ViewResult> Index()
@@ -25,48 +29,47 @@ namespace Sneaker.Controllers.AdminControllers
             return View(br.GetAll);
         }
 
-
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Category category)
+        public async Task<IActionResult> Create(Size size)
         {
-
             if (ModelState.IsValid)
             {
-                br.Create(category);
+                br.Create(size);
                 br.Save();
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            return View(size);
         }
+
 
         public async Task<IActionResult> Edit(int id)
         {
-            Category category = br.Get(id);
-            return View(category);
+            Size size = br.Get(id);
+            return View(size);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Category category)
+        public async Task<IActionResult> Edit(Size size)
         {
             if (ModelState.IsValid)
             {
-                br.Edit(category);
+                br.Edit(size);
                 br.Save();
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return View(size);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            Category category = br.Get(id);
-            return View(category);
+            Size size = br.Get(id);
+            return View(size);
         }
 
 

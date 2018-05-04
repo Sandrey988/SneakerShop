@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Sneaker.Models;
 using Sneaker.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
-namespace CustomIdentityApp.Controllers
+namespace Sneaker.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "admin")]
     public class RolesController : Controller
     {
         RoleManager<IdentityRole> _roleManager;

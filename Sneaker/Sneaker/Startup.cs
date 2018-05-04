@@ -53,8 +53,12 @@ namespace Sneaker
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "aaa",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                name: "areas",
+                template: "{area:exists}/{controller=Index}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                name: "aaa",
+                template: "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                 name : "default",

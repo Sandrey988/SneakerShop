@@ -9,9 +9,12 @@ using Sneaker.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Context;
 using Sneaker.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Sneaker.Controllers.AdminControllers
+namespace Sneaker.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "admin")]
     public class ProductController : Controller
     {
         private readonly IProductRepository br;

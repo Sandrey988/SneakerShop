@@ -4,22 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Sneaker.Models;
-using Sneaker.ViewModel;
-using Sneaker.Context;
 using Sneaker.Repositories.Interfaces;
+using Sneaker.ViewModel;
+using Sneaker.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Sneaker.Context;
+using Microsoft.AspNetCore.Authorization;
 
-
-namespace Sneaker.Controllers.AdminControllers
+namespace Sneaker.Areas.Admin.Controllers
 {
-    public class SizeController : Controller
+    [Area("Admin")]
+    [Authorize(Roles = "admin")]
+    public class MaterialController : Controller
     {
-        private readonly IRepository<Size> br;
+        private readonly IRepository<Material> br;
 
-        public SizeController(IRepository<Size> sizeRepository)
+        public MaterialController(IRepository<Material> categoryRepository)
         {
-            br = sizeRepository;
+            br = categoryRepository;
         }
 
         public async Task<ViewResult> Index()
@@ -33,41 +36,42 @@ namespace Sneaker.Controllers.AdminControllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Size size)
+        public async Task<IActionResult> Create(Material material)
         {
+
             if (ModelState.IsValid)
             {
-                br.Create(size);
+                br.Create(material);
                 br.Save();
                 return RedirectToAction("Index");
             }
 
-            return View(size);
+            return View(material);
         }
 
 
         public async Task<IActionResult> Edit(int id)
         {
-            Size size = br.Get(id);
-            return View(size);
+            Material material = br.Get(id);
+            return View(material);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Size size)
+        public async Task<IActionResult> Edit(Material material)
         {
             if (ModelState.IsValid)
             {
-                br.Edit(size);
+                br.Edit(material);
                 br.Save();
                 return RedirectToAction("Index");
             }
-            return View(size);
+            return View(material);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            Size size = br.Get(id);
-            return View(size);
+            Material material = br.Get(id);
+            return View(material);
         }
 
 

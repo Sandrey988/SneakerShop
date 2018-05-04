@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Sneaker.Models;
 using Microsoft.EntityFrameworkCore;
 using Sneaker.Context;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Sneaker.Controllers.AdminControllers
+namespace Sneaker.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "admin")]
     public class IndexController : Controller
     {
-        [Route("Admin/Index")]
         public ActionResult Index()
         {
             return View();

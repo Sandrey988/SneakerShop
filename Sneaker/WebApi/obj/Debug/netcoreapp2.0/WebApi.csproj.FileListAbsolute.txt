@@ -8,3 +8,4 @@ D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.Assem
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfo.cs
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.dll
 D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.pdb
+D:\Study\6_sem\CourseProject\Sneaker\WebApi\obj\Debug\netcoreapp2.0\WebApi.csprojResolveAssemblyReference.cache
