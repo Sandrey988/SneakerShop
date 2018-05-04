@@ -35,7 +35,7 @@ namespace Sneaker
             services.AddMvc();
 
             services.AddScoped(typeof(IStorage), typeof(Storage));
-            //services.AddTransient<IRepository<Brand>, BrandRepository>();
+            services.AddTransient<IRepository<Brand>, BrandRepository>();
             services.AddTransient<IRepository<Category>, CategoryRepository>();
             services.AddTransient<IRepository<Material>, MaterialRepository>();
             services.AddTransient<ISneakerRepository<Models.Sneaker>, SneakerRepository>();
@@ -52,12 +52,11 @@ namespace Sneaker
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "aaa",
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
-            routes.MapRoute(
-                name: "AdminDefault",
-                template: "Admin/{controller=Index}/{action=Index}/{id?}");
-
-            routes.MapRoute(
+                routes.MapRoute(
                 name : "default",
                 template: "{controller=Home}/{action=Index}");
 

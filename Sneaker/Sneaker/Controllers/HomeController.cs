@@ -12,7 +12,8 @@ namespace Sneaker.Controllers
     
     public class HomeController : Controller
     {
-        public async Task<ActionResult> Index()
+        
+        public ActionResult Index()
         {
             return View();
         }

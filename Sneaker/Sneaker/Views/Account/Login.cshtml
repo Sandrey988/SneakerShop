@@ -2,14 +2,14 @@
 @{  
 <html>
 <head>
-    <link href="~/css/sneakerStyle.css" rel="stylesheet">
+    <link href="~/css/list.css" rel="stylesheet">
 </head>
 <body>
     <div class="text-center sticky-top">
         <h2>Вход </h2>
         <form method="post" asp-controller="Account" asp-action="Login"
               asp-route-returnUrl="@Model.ReturnUrl">
-            <div class="xyz">
+            <div>
                 <div asp-validation-summary="ModelOnly"></div>
             </div>
 
@@ -23,6 +23,10 @@
             </div>
             <div>
                 <input type="submit" value="Войти" />
+            </div>
+            <br>
+            <div>
+                <img src="~/icons/loading.gif" />
             </div>
         </form>
     </div>

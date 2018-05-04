@@ -12,25 +12,22 @@ using Sneaker.Services;
 
 namespace Sneaker.Controllers.AdminControllers
 {
+    [Area("Admin")]
     public class BrandController : Controller
     {
-
-
-
         private readonly IRepository<Brand> br;
 
         public BrandController(IRepository<Brand> brandRepository)
         {
             br = brandRepository;
         }
-
-
-        public async Task<IActionResult> Index()
+        [Route("[area]/[controller]/[action]")]
+        public IActionResult Index()
         {
             return View(br.GetAll);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }

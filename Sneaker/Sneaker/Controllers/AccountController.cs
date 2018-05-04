@@ -87,7 +87,7 @@ namespace Sneaker.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ModelState.AddModelError("", "Не прокатило, не фартануло");
                 }
             }
             return View(model);
