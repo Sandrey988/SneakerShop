@@ -1,32 +1,42 @@
 ﻿
-@model IEnumerable<Sneaker.ViewModel.ProductView>
+@model List<Sneaker.ViewModel.ProductView>
 @addTagHelper "*, Sneaker"
 
 @{
-    <html>
-    <head>
-        <title>@Model.FirstOrDefault().BrandName</title>
-        <link href="~/css/sneakerStyle.css" rel="stylesheet" />
-    </head>
-
-    @foreach (var product in Model)
+<html>
+<head>
+    
+    <title>@(Model.FirstOrDefault() == null ? "Ничего не найдено" : Model.First().BrandName)
+    </title>
+    <link href="~/css/sneakerStyle.css" rel="stylesheet" />
+</head>
+<body>
+    @if (Model.Count != 0)
     {
-        <body>
-            <div class="navbar-brand-my ">
-                <div>
-                    <a asp-action="Details" asp-controller="ProductView" asp-route-id="@product.Id">
-                        <img src="@product.UrlImage" height="278" width="278" />
-                        <div>
-                            <p><b>@product.Name </b></p>
-                            <p class="btn-success"><b>$@product.Price </b></p>
-                        </div>
-                    </a>
+
+        @foreach (var product in Model)
+        {
+                <div class="navbar-brand-my ">
+                    <div>
+                        <a asp-action="Details" asp-controller="ProductView" asp-route-id="@product.Id">
+                            <img src="@product.UrlImage" height="278" width="278" />
+                            <div>
+                                <p><b>@product.Name </b></p>
+                                <p class="btn-success"><b>$@product.Price </b></p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </body>
 
+        }
     }
-
+    else
+    {
+        <div class="text-center">
+            <h1>По вашему запросу ничего не найдено</h1>
+        </div>
+     }
+</body>
 </html>
 }
 

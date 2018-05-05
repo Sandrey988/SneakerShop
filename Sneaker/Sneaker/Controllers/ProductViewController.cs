@@ -24,11 +24,6 @@ namespace Sneaker.Controllers.AdminControllers
 
         public async Task<IActionResult> Index(int id)
         {
-            //int pageSize = 4; // количество элементов на странице
-            //IQueryable<Product> source = db.Products.Include(x => x.Sneaker);
-            //var count = await source.CountAsync();
-            //var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-            //  PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             List<Models.Sneaker> sneakers = new List<Models.Sneaker>();
             sneakers = db.Sneakers.Where(x => x.BrandId == id).ToList();
             List<Product> products = new List<Product>();
@@ -45,8 +40,6 @@ namespace Sneaker.Controllers.AdminControllers
                     Name = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerName,
                     Price = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().Price,
                     UrlImage = db.Imgs.Where(x => x.SneakerId == sneakerId).FirstOrDefault().ImgUrl
-                    //Products = items,
-                    //PageViewModels = pageViewModel
                 });
             }
 
@@ -85,21 +78,30 @@ namespace Sneaker.Controllers.AdminControllers
 
         public IActionResult Search(string searchString)
         {
-            string _searchString = searchString;
-            IEnumerable<Product> products;
-            if (string.IsNullOrEmpty(_searchString))
-            {
-                products = db.Products.OrderBy(p => p.ProductId);
-            }
-            else
-            {
-                products = db.Products.Where(p => p.ProductName.ToLower().Contains(_searchString.ToLower()));
-            }
+            List<ProductView> productsView = new List<ProductView>();
 
-            return View("~/Views/ProductView/Index.cshtml", new ProductView {Products = products });
+            try
+            {
+                    IEnumerable<Product> products = db.Products.Where(p => p.ProductName.ToLower().Contains(searchString.ToLower()));
+
+                    foreach (var product in products)
+                    {
+                        var sneaker = db.Sneakers.Where(x => x.SneakerId == product.SneakerId).FirstOrDefault();
+                        productsView.Add(new ProductView
+                        {
+                            Id = product.ProductId,
+                            BrandName = $"Search \"{searchString}\"",
+                            Name = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerName,
+                            Price = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().Price,
+                            UrlImage = db.Imgs.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().ImgUrl
+                        });
+                    }  
+            }
+            catch (Exception)
+            {
+
+            }
+            return View("~/Views/ProductView/Index.cshtml", productsView);
         }
-
-
-
     }
 }   
