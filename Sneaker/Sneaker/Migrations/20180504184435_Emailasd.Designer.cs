@@ -11,8 +11,8 @@ using System;
 namespace Sneaker.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20180503171319_LOLUserstdrf")]
-    partial class LOLUserstdrf
+    [Migration("20180504184435_Emailasd")]
+    partial class Emailasd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

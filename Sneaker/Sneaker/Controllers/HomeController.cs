@@ -9,10 +9,8 @@ using Sneaker.ViewModel;
 
 namespace Sneaker.Controllers
 {
-    
     public class HomeController : Controller
     {
-        
         public ActionResult Index()
         {
             return View();

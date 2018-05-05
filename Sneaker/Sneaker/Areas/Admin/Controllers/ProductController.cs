@@ -72,6 +72,5 @@ namespace Sneaker.Areas.Admin.Controllers
             return NotFound();
         }
 
-
     }
 }

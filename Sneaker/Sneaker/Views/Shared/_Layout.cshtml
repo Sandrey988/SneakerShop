@@ -32,11 +32,11 @@
                     </div>
                 </div>
 
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
-                    <a href="#" class="navbar-brand ml-2">
-                        <img src="~/icons/search.svg" width="20" height="20" alt="shopping" />
-                    </a>
+                <form class="form-inline my-2 my-lg-0" asp-controller="ProductView" asp-action="Search" method="get">
+                    <input type="text" class="form-control" placeholder="Search" name="searchString" value="@ViewData["searchString"]">
+
+                    @*<img src="~/icons/search.svg" width="20" height="20" alt="shopping" />*@
+                    
                 </form>
 
                 <a href="#" class="navbar-brand mr-5 ml-3">

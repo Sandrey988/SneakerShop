@@ -61,11 +61,11 @@ namespace Sneaker
                 template: "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
-                name : "default",
+                name: "default",
                 template: "{controller=Home}/{action=Index}");
 
             });
         }
-        
+
     }
 }

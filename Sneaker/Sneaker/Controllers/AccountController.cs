@@ -7,17 +7,6 @@ using Microsoft.AspNetCore.Identity;
 namespace Sneaker.Controllers
 {
 
-    /*
-     *Разбиение пользователей
-     *Роли для админки
-        Управление с админки пользователями
-
-        Оформить странички
-     Убрать точку(<ul>)
-
-         
-         */
-   
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;

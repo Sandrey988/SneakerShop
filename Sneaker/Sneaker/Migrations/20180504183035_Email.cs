@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sneaker.Migrations
 {
-    public partial class LOLUserstdrfsafddfg : Migration
+    public partial class Email : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
