@@ -18,7 +18,7 @@ namespace Sneaker.Models
         [MaxLength (2000)]
         [Required]
         public string Description { get; set; }
-
+            
         public List<Sneaker> Sneaker { get; set; }
     }
 }

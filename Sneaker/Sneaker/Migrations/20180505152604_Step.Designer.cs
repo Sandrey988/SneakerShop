@@ -11,9 +11,10 @@ using System;
 namespace Sneaker.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    partial class ModelContextModelSnapshot : ModelSnapshot
+    [Migration("20180505152604_Step")]
+    partial class Step
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,7 +230,7 @@ namespace Sneaker.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("ProductSizes");
+                    b.ToTable("ProductSize");
                 });
 
             modelBuilder.Entity("Sneaker.Models.Size", b =>

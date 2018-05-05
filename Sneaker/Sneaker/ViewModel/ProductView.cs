@@ -25,7 +25,7 @@ namespace Sneaker.ViewModel
         
 
         public IList<Size> Sizes { get; set; }
-        public float SelectedSize { get; set; }
+        public int SelectedSize { get; set; }
 
         public IEnumerable<Product> Products { get; set; }
         public PageViewModel PageViewModels { get; set; }

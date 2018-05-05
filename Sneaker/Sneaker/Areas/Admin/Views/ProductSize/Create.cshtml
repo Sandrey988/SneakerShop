@@ -1,0 +1,26 @@
+﻿@model Sneaker.ViewModel.ProductSizeViewModel
+@{
+    ViewBag.Title = "Добавление кроссовка";
+}
+
+    <body>
+        <form asp-action="Create" asp-controller="ProductSize" method="post">
+            <div class="form-group">
+                <label asp-for="Products" class="control-label"></label>
+                <select asp-for="SelectProduct"
+                        asp-items="@(new SelectList(Model.Products, "ProductId", "ProductName"))"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sizes" class="control-label"></label>
+                <select asp-for="SelectSize"
+                        asp-items="@(new SelectList(Model.Sizes, "SizeId", "Number"))"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send" class="btn btn-default" />
+            </div>
+        </form>
+
+
+    </body>
+
+

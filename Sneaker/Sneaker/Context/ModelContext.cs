@@ -19,6 +19,7 @@ namespace Sneaker.Context
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductSize> ProductSizes { get; set; }
 
         public ModelContext(DbContextOptions<ModelContext> options)
             : base(options) { }

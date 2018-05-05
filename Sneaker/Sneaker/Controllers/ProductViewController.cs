@@ -14,7 +14,6 @@ namespace Sneaker.Controllers.AdminControllers
 {
     public class ProductViewController : Controller
     {
-
         private readonly ModelContext db;
 
         public ProductViewController(ModelContext modelContext)
@@ -22,7 +21,7 @@ namespace Sneaker.Controllers.AdminControllers
             db = modelContext;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public IActionResult Index(int id)
         {
             List<Models.Sneaker> sneakers = new List<Models.Sneaker>();
             sneakers = db.Sneakers.Where(x => x.BrandId == id).ToList();
@@ -42,13 +41,13 @@ namespace Sneaker.Controllers.AdminControllers
                     UrlImage = db.Imgs.Where(x => x.SneakerId == sneakerId).FirstOrDefault().ImgUrl
                 });
             }
-
             return View(productsView);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id, Size size) // добавить размеры которые имеются у данного продукта
         {
             List<ProductView> productView = new List<ProductView>();
+           
             if (id != null)
             {
                 Product product = db.Products.FirstOrDefault(x => x.ProductId == id);
@@ -57,6 +56,9 @@ namespace Sneaker.Controllers.AdminControllers
                 Brand brand = db.Brands.FirstOrDefault(x => x.Id == sneaker.BrandId);
                 Material material = db.Materials.FirstOrDefault(x => x.Id == sneaker.MaterialId);
                 Category category = db.Categories.FirstOrDefault(x => x.Id == sneaker.CategoryId);
+
+                
+
                 productView.Add(new ProductView
                 {
                     Id = product.ProductId,
@@ -79,23 +81,22 @@ namespace Sneaker.Controllers.AdminControllers
         public IActionResult Search(string searchString)
         {
             List<ProductView> productsView = new List<ProductView>();
-
             try
             {
-                    IEnumerable<Product> products = db.Products.Where(p => p.ProductName.ToLower().Contains(searchString.ToLower()));
+                IEnumerable<Product> products = db.Products.Where(p => p.ProductName.ToLower().Contains(searchString.ToLower()));
 
-                    foreach (var product in products)
+                foreach (var product in products)
+                {
+                    var sneaker = db.Sneakers.Where(x => x.SneakerId == product.SneakerId).FirstOrDefault();
+                    productsView.Add(new ProductView
                     {
-                        var sneaker = db.Sneakers.Where(x => x.SneakerId == product.SneakerId).FirstOrDefault();
-                        productsView.Add(new ProductView
-                        {
-                            Id = product.ProductId,
-                            BrandName = $"Search \"{searchString}\"",
-                            Name = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerName,
-                            Price = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().Price,
-                            UrlImage = db.Imgs.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().ImgUrl
-                        });
-                    }  
+                        Id = product.ProductId,
+                        BrandName = $"Search \"{searchString}\"",
+                        Name = db.Sneakers.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().SneakerName,
+                        Price = db.Products.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().Price,
+                        UrlImage = db.Imgs.Where(x => x.SneakerId == sneaker.SneakerId).FirstOrDefault().ImgUrl
+                    });
+                }  
             }
             catch (Exception)
             {
