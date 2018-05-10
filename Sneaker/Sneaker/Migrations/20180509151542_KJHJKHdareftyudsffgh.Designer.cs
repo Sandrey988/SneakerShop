@@ -11,8 +11,8 @@ using System;
 namespace Sneaker.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20180505162647_Stepg")]
-    partial class Stepg
+    [Migration("20180509151542_KJHJKHdareftyudsffgh")]
+    partial class KJHJKHdareftyudsffgh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,6 +199,26 @@ namespace Sneaker.Migrations
                     b.ToTable("Materials");
                 });
 
+            modelBuilder.Entity("Sneaker.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<string>("UrlImage");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("Sneaker.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -225,6 +245,10 @@ namespace Sneaker.Migrations
                     b.Property<int>("ProductId");
 
                     b.Property<int>("SizeId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<float>("Number");
 
                     b.HasKey("ProductId", "SizeId");
 
@@ -374,6 +398,14 @@ namespace Sneaker.Migrations
                     b.HasOne("Sneaker.Models.Sneaker", "Sneaker")
                         .WithMany("Img")
                         .HasForeignKey("SneakerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Sneaker.Models.Order", b =>
+                {
+                    b.HasOne("Sneaker.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

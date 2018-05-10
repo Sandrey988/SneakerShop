@@ -11,8 +11,8 @@ using System;
 namespace Sneaker.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20180504183035_Email")]
-    partial class Email
+    [Migration("20180508102055_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,6 +199,24 @@ namespace Sneaker.Migrations
                     b.ToTable("Materials");
                 });
 
+            modelBuilder.Entity("Sneaker.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Price");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("Sneaker.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -230,7 +248,7 @@ namespace Sneaker.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("ProductSize");
+                    b.ToTable("ProductSizes");
                 });
 
             modelBuilder.Entity("Sneaker.Models.Size", b =>
@@ -374,6 +392,14 @@ namespace Sneaker.Migrations
                     b.HasOne("Sneaker.Models.Sneaker", "Sneaker")
                         .WithMany("Img")
                         .HasForeignKey("SneakerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Sneaker.Models.Order", b =>
+                {
+                    b.HasOne("Sneaker.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

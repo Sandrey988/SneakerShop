@@ -1,4 +1,4 @@
-﻿@model Sneaker.ViewModel.SneakerAll
+﻿    @model Sneaker.ViewModel.SneakerAll
 @{
     ViewBag.Title = "Добавление кроссовка";
 }
@@ -35,8 +35,6 @@
                 <select asp-for="SelectedBrand"
                         asp-items="@(new SelectList(Model.Brands, "Id", "BrandName"))"></select>
             </div>
-
-
 
             <div class="form-group">
                 <input type="submit" value="Send" class="btn btn-default" />

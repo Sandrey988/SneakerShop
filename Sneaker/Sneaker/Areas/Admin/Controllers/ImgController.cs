@@ -29,14 +29,14 @@ namespace Sneaker.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             SneakerImg sneakerImg = br.GetItemDb();
             return View(sneakerImg);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Img img, SneakerImg sneakerImg)
+        public IActionResult Create(Img img, SneakerImg sneakerImg)
         {
             img.ImgUrl = sneakerImg.UrlImage;
             img.SneakerId = sneakerImg.SelectSneaker;

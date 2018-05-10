@@ -17,7 +17,7 @@ namespace Sneaker.Repositories
             db = model;
         }
 
-        public IEnumerable<Size> GetAll => db.Sizes;
+        public IEnumerable<Size> GetAll => db.Sizes.OrderBy(x => x.Number);
 
         public void Create(Size size)
         {

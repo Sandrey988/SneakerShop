@@ -22,12 +22,10 @@ namespace Sneaker.ViewModel
         public string BrandName { get; set; }
         public string CategoryName { get; set; }
         public string MaterialName { get; set; }
-        
+        public float SizesProduct { get; set; }
 
-        public IList<Size> Sizes { get; set; }
+
+        public List<ProductSize> Sizes { get; set; }
         public int SelectedSize { get; set; }
-
-        public IEnumerable<Product> Products { get; set; }
-        public PageViewModel PageViewModels { get; set; }
     }
 }

@@ -10,12 +10,26 @@
 
 .navbar-brand-my {
     display: inline-block;
-    padding-top: 0.3125rem;
+    padding-top: 2rem;
+    padding-right:2rem;
     padding-bottom: 0.3125rem;
     line-height: inherit;
     white-space: nowrap;
     margin-left: 14%;
     text-align:center;
+  
+}
 
-    
+.row-my {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    align-items: center;
+}
+
+.text-my {
+    text-align: right !important;
+    flex: 0 0 85.5%;
+    max-width: 85.5%;
 }

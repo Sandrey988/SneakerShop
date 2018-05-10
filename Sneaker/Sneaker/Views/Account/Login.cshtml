@@ -7,6 +7,8 @@
 <body>
     <div class="text-center sticky-top">
         <h2>Вход </h2>
+        <h6>Еще нет аккаунта? <a asp-action="Register" asp-controller="Account">Зарегистрируйтесь!</a></h6>
+        
         <form method="post" asp-controller="Account" asp-action="Login"
               asp-route-returnUrl="@Model.ReturnUrl">
             <div>

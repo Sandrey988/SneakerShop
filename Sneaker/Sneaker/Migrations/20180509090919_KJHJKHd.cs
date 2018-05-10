@@ -4,16 +4,22 @@ using System.Collections.Generic;
 
 namespace Sneaker.Migrations
 {
-    public partial class KKFFdsgfsdg : Migration
+    public partial class KJHJKHd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.RenameColumn(
+                name: "Id",
+                table: "Orders",
+                newName: "OrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.RenameColumn(
+                name: "OrderId",
+                table: "Orders",
+                newName: "Id");
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿<html>
 <head>
-
-
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -14,7 +12,7 @@
             </button>
             <a class="navbar-brand" asp-controller="Home" asp-action="Index">SneakerShop</a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <div class="dropdown mr-lg-auto mt-lg-auto ml-4">
+                <div class="dropdown mr-lg-auto mt-lg-auto">
                     <button class="btn btn-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
                         Бренды
                     </button>
@@ -25,7 +23,7 @@
                         <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="2">Nike</a>
                         <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="7">Karhu</a>
                         <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="8">Puma</a>
-                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="9">Reebok</a>
+                        <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="3">Reebok</a>
                         <a class="dropdown-item text-light" asp-controller="ProductView" asp-action="Index" asp-route-id="10">Vans</a>
 
 
@@ -33,30 +31,25 @@
                 </div>
 
                 <form class="form-inline my-2 my-lg-0" asp-controller="ProductView" asp-action="Search" method="get">
-                    <input type="text" class="form-control" placeholder="Search" name="searchString" value="@ViewData["searchString"]">
-
-                    @*<img src="~/icons/search.svg" width="20" height="20" alt="shopping" />*@
-                    
+                    <input type="text" class="form-control" placeholder="Search" name="searchString" value="@ViewData["searchString"]">   
                 </form>
 
-                <a href="#" class="navbar-brand mr-5 ml-3">
+                <a asp-action="Index" asp-controller="Card" class="navbar-brand mr-5 ml-3">
                     <img src="~/icons/shopping-cart.svg" width="30" height="30" alt="shopping" />
                 </a>
-
 
                 @if (User.Identity.IsAuthenticated)
                 {
 
                     <ul class="navbar-nav mr-lg-left mr-3 mt-lg-0">
                         <li class="nav-item active">
-                            <p class="text-light"> @User.Identity.Name </p>
+                            <p class="text-light">Hello, @User.Identity.Name </p>
                         </li>
                     </ul>
 
-
                     <form  class="form-inline my-2 my-lg-0" method="post" asp-controller="Account" asp-action="LogOff">
                         
-                        <ul class="navbar-nav mr-lg-left mr-3 mt-lg-auto ">
+                        <ul class="navbar-nav mr-lg-left mt-lg-auto ">
                             <li class="nav-item active">
                                 <input class="btn btn-light " type="submit" value="Выход"/>
                             </li>
@@ -78,7 +71,7 @@
                         </li>
                     </ul>
                 }
-                <!-- #region Test -->
+                <!-- #region Modal -->
                 <div class="modal fade" id="authmodal" tabindex="-1" role="dialog"
                      aria-labelledby="authmodal" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
@@ -156,6 +149,7 @@
                     </div>
                 </div>
                 <!-- #endregion -->
+
             </div>
         </nav>
     </header>

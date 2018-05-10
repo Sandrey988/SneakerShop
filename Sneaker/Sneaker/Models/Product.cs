@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sneaker.Models
 {
@@ -16,6 +17,8 @@ namespace Sneaker.Models
         
         public decimal Price { get; set; }
         public int Amount { get; set; }
+
+        [ForeignKey("Sneaker")]
         public int SneakerId { get; set; }
 
         public Sneaker Sneaker { get; set; }

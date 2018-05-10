@@ -13,6 +13,9 @@ namespace Sneaker.Models
         [Required]
         public Product Product { get; set; }
 
+        public string Name { get; set; }
+        public float Number { get; set; }
+
         [Required]
         public int SizeId { get; set; }
 

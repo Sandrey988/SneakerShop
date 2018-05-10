@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Sneaker.ViewModel.ProductView>
+@{
+    <html>
+    <head>
+        <link href="~/css/sneakerStyle.css" rel="stylesheet" />
+        <title>Добавление в корзину @Model.FirstOrDefault().Name</title>
+    </head>
+    <body>
+        <form asp-action="Create" asp-controller="Card" method="post">
+            <div class="text-center">
+                <h1 class="alert-success">Ваш заказ:</h1>
+                <h5><p>@Model.FirstOrDefault().Name</p></h5>
+                <div class="form-group">
+                    <input type="hidden" asp-for="@Model.FirstOrDefault().UrlImage" class="form-control" />
+                    <input type="hidden" asp-for="@Model.FirstOrDefault().Name" class="form-control" />
+                </div>
+                <h5><p>$ @Model.FirstOrDefault().Price</p></h5>
+                <div class="form-group">
+                    <input type="hidden" asp-for="@Model.FirstOrDefault().Price" class="form-control" />
+                </div>
+                <br>
+                <input type="submit" class="btn font-weight-bold btn-success" value="Добавить в корзину" />
+            </div>
+        </form>
+    </body>
+</html>
+}

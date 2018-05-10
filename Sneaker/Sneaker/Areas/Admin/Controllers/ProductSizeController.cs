@@ -39,8 +39,12 @@ namespace Sneaker.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ProductSize productSize, ProductSizeViewModel productSizeViewModel)
+        public IActionResult Create(ProductSize productSize, ProductSizeViewModel productSizeViewModel, Product product, Size size)
         {
+
+            size.Number = productSizeViewModel.NumberSize;
+            product.ProductName = productSizeViewModel.SneakerName;
+
             productSize.ProductId = productSizeViewModel.SelectProduct;
             productSize.SizeId = productSizeViewModel.SelectSize;
 

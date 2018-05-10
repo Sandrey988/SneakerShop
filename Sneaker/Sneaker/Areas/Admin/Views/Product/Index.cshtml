@@ -9,16 +9,17 @@
 <body>
     <a asp-action="Create">Добавить товар</a>
     <table class="table">
-        <tr><td>Товар</td></tr>
+
+        <tr><td><h4>Товар</h4></td></tr>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>@item.ProductName</td>
-            <td>
-                <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.ProductId">Удалить</a> |
+            <tr>
+                <td>@item.ProductName</td>
+                <td>
+                    <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.ProductId">Удалить</a> |
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </table>
 </body>

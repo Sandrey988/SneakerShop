@@ -1,21 +1,33 @@
 ﻿@model IEnumerable<Sneaker.ViewModel.ProductView>
 @{
 <html>
-    <head>
-        <title>@Model.FirstOrDefault().Name</title>
-    </head>
-    <body>
-        <div class="">
-            <img src="@Model.FirstOrDefault().UrlImage" height="600" width="600" />
-            <p>  @Model.FirstOrDefault().Name</p>
-            <p>Количество @Model.FirstOrDefault().Amount</p>
-            <p>Бренд @Model.FirstOrDefault().BrandName</p>
-            <p>Категория @Model.FirstOrDefault().CategoryName</p>
-            <p>Описание @Model.FirstOrDefault().Description</p>
-            <p>Материал @Model.FirstOrDefault().MaterialName</p>
-            <p>Цена @Model.FirstOrDefault().Price</p>
+<head>
+    <link href="~/css/sneakerStyle.css" rel="stylesheet" />
+    <title>@Model.FirstOrDefault().Name</title>
+</head>
+<body>
 
-        </div>
-    </body>
+    <div class="navbar-brand-my">
+        <img src="@Model.FirstOrDefault().UrlImage" height="600" width="600" />
+    </div>
+    <div class="navbar-brand">
+        <p><h3>@Model.FirstOrDefault().Name @Model.FirstOrDefault().Description</h3></p>
+        <p><h3 class="text-danger">$ @Model.FirstOrDefault().Price </h3></p>
+        <p>Категория: @Model.FirstOrDefault().CategoryName</p>
+
+        <p>Материал: @Model.FirstOrDefault().MaterialName</p>
+        <p><b>Выберите размер: </b></p>
+        @foreach (var item in Model.FirstOrDefault().Sizes)
+        {
+        <input type="radio" name="size"><label>@item.Size.Number</label>
+
+        }
+        <br>
+        <a asp-action="Create" asp-controller="Card" asp-route-id="@Model.First().Id">
+            <input type="submit" class="btn font-weight-bold btn-success" value="Перейти к заказу" />
+        </a>
+    </div>
+
+</body>
 </html>
 }

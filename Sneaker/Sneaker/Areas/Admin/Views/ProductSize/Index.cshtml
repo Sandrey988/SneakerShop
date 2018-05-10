@@ -8,13 +8,14 @@
 <body>
     <a asp-action="Create">Добавить кросcовки</a>
     <table class="table">
-        <tr><td>Название кроссовка</td></tr>
+        <tr><td>Название кроссовка</td><td>Размер</td></tr>
         @foreach (var item in Model)
         {
         <tr>
-            <td>@item.ProductId</td>
+            <td>@item.Name</td>
+            <td>@item.Number</td>
             <td>
-                <a asp-action="Delete" asp-controller="ProductSize" asp-route-id="@item.ProductId">Удалить</a>
+               
             </td>
         </tr>
         }

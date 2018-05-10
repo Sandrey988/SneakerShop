@@ -2,92 +2,91 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Sneaker.Models;
+using Sneaker.Context;
+using Sneaker.ViewModel;
 
 namespace Sneaker.Controllers
 {
+    [Authorize]
     public class CardController : Controller
     {
-        // GET: Card
-        public ActionResult Index()
+        private ModelContext db;
+
+        public CardController(ModelContext modelContext)
         {
-            return View();
+            db = modelContext;
         }
 
-        // GET: Card/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Index()
         {
-            return View();
+            return View(db.Orders);
         }
 
-        // GET: Card/Create
-        public ActionResult Create()
+        [HttpGet]
+        public IActionResult Create(int? id)
         {
-            return View();
+            List<ProductView> productView = new List<ProductView>();
+            if (id != null)
+            {
+                Product product = db.Products.FirstOrDefault(x => x.ProductId == id);
+                Img img = db.Imgs.First(x => x.Id == id);
+                productView.Add(new ProductView
+                {
+                    Id = product.ProductId,
+                    Name = product.ProductName,
+                    Price = product.Price,
+                    UrlImage = img.ImgUrl
+                });
+                if (productView != null)
+                    return View(productView);
+            }
+            return NotFound();
         }
 
-        // POST: Card/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(ProductView productView, Order order)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            order.UrlImage = productView.UrlImage;
+            order.ProductId = productView.Id;
+            order.Name = productView.Name;
+            order.Price = productView.Price;
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (ModelState.IsValid)
             {
-                return View();
+                db.Orders.Add(order);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
+
+            return View(productView);
         }
 
-        // GET: Card/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
-            return View();
+            Order order = db.Orders.Find(id);
+            return View(order);
         }
 
-        // POST: Card/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int? id)
         {
-            try
+            if (id != null)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                Order order =  db.Orders.FirstOrDefault(p => p.OrderId == id);
+                if (order != null)
+                {
+                    db.Orders.Remove(order);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return NotFound();
         }
 
-        // GET: Card/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Card/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

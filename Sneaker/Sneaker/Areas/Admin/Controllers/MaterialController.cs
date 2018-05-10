@@ -25,18 +25,18 @@ namespace Sneaker.Areas.Admin.Controllers
             br = categoryRepository;
         }
 
-        public async Task<ViewResult> Index()
+        public ViewResult Index()
         {
             return View(br.GetAll);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Material material)
+        public IActionResult Create(Material material)
         {
 
             if (ModelState.IsValid)
@@ -50,14 +50,14 @@ namespace Sneaker.Areas.Admin.Controllers
         }
 
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             Material material = br.Get(id);
             return View(material);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Material material)
+        public IActionResult Edit(Material material)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace Sneaker.Areas.Admin.Controllers
             return View(material);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             Material material = br.Get(id);
             return View(material);
@@ -76,7 +76,7 @@ namespace Sneaker.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id != null)
             {

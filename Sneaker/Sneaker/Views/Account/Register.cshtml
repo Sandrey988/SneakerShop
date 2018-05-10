@@ -10,25 +10,25 @@
         <h2>Регистрация нового пользователя</h2>
         <form method="post" asp-controller="Account" asp-action="Register">
             <div asp-validation-summary="ModelOnly"></div>
-
+            <span asp-validation-for="UserName"></span>
             <div>
                 <input asp-for="UserName" placeholder="UserName" />
-                <span asp-validation-for="UserName"></span>
             </div>
+            <span asp-validation-for="Email"></span>
             <div>
                 <input asp-for="Email" placeholder="Email" />
-                <span asp-validation-for="Email"></span>
             </div>
+            <span asp-validation-for="Password"></span>
             <div>
                 <input asp-for="Password" placeholder="Password" />
-                <span asp-validation-for="Password"></span>
             </div>
+            <span asp-validation-for="PasswordConfirm"></span>
             <div>
                 <input asp-for="PasswordConfirm" placeholder="PasswordConfirm" />
-                <span asp-validation-for="PasswordConfirm"></span>
             </div>
+            <br>
             <div>
-                <input class="btn-success" type="submit" value="Регистрация" />
+                <input class="btn btn-success" type="submit" value="Регистрация" />
             </div>
         </form>
     </div>

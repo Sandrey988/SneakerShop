@@ -11,8 +11,8 @@ using System;
 namespace Sneaker.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20180504154902_KKFFdsgfsdgnk")]
-    partial class KKFFdsgfsdgnk
+    [Migration("20180509112749_KJHJKHdareftyu")]
+    partial class KJHJKHdareftyu
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,6 +199,26 @@ namespace Sneaker.Migrations
                     b.ToTable("Materials");
                 });
 
+            modelBuilder.Entity("Sneaker.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<string>("UrlImage");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("Sneaker.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -230,7 +250,7 @@ namespace Sneaker.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("ProductSize");
+                    b.ToTable("ProductSizes");
                 });
 
             modelBuilder.Entity("Sneaker.Models.Size", b =>
@@ -374,6 +394,14 @@ namespace Sneaker.Migrations
                     b.HasOne("Sneaker.Models.Sneaker", "Sneaker")
                         .WithMany("Img")
                         .HasForeignKey("SneakerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Sneaker.Models.Order", b =>
+                {
+                    b.HasOne("Sneaker.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -44,10 +44,9 @@ namespace Sneaker.Controllers.AdminControllers
             return View(productsView);
         }
 
-        public IActionResult Details(int? id, Size size) // добавить размеры которые имеются у данного продукта
+        public IActionResult Details(int? id)
         {
             List<ProductView> productView = new List<ProductView>();
-           
             if (id != null)
             {
                 Product product = db.Products.FirstOrDefault(x => x.ProductId == id);
@@ -56,8 +55,7 @@ namespace Sneaker.Controllers.AdminControllers
                 Brand brand = db.Brands.FirstOrDefault(x => x.Id == sneaker.BrandId);
                 Material material = db.Materials.FirstOrDefault(x => x.Id == sneaker.MaterialId);
                 Category category = db.Categories.FirstOrDefault(x => x.Id == sneaker.CategoryId);
-
-                
+                List<ProductSize> productSize = db.ProductSizes.Where(x => x.ProductId == product.ProductId).Include(x => x.Size).OrderBy(x => x.Size.Number).ToList();
 
                 productView.Add(new ProductView
                 {
@@ -69,13 +67,26 @@ namespace Sneaker.Controllers.AdminControllers
                     Description = sneaker.Description,
                     BrandName = brand.BrandName,
                     CategoryName = category.CategoryName,
-                    MaterialName = material.MaterialName
-
+                    MaterialName = material.MaterialName,
+                    Sizes = productSize
                 });
                 if (productView != null)
                     return View(productView);
             }
             return NotFound();
+        }
+
+        public IActionResult Create(int id, Order order, ProductView productView)
+        {
+            if (ModelState.IsValid)
+            {
+                order.Name = productView.Name;
+                order.Price = productView.Price;
+
+                db.Add(order);
+                db.SaveChanges();
+            }
+            return View("~/Views/Card/Index.cshtml");
         }
 
         public IActionResult Search(string searchString)

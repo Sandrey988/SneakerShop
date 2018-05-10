@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Sneaker.Models.Order>
+@{
+    ViewBag.Title = "Список";
+}
+
+<html>
+<head>
+    <link href="~/css/delete.css" rel="stylesheet" />
+    <link href="~/css/sneakerStyle.css" rel="stylesheet" />
+    <title>Корзина</title>
+</head>
+<body>
+    <div class="container-fluid">
+        
+        @if (Model.ToList().Count != 0)
+        {
+            @foreach (var item in Model)
+            {
+
+                <div class="row-my">
+                    <div class="col-sm-2 mt-3">
+                        <img src="@item.UrlImage" height="100" width="100" />
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <h5>@item.Name</h5>
+                    </div>
+                    <div class="col-sm-2 mt-3">
+                        <h5>$ @item.Price</h5>
+                    </div>
+                    <div class="col-sm-2 mt-3">
+                        <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.OrderId">
+                            <p class="delete"><img src="~/icons/delete-button.svg" width="25" height="25" alt="shopping" /></p>
+                        </a>
+                    </div>
+                </div>   
+            }
+            <div class="text-my">
+                <input class="btn btn-success btn-sm  " type="button" value="Оформить заказ">
+            </div>
+        }
+        else
+        {
+            <div class="text-center">
+                <p ><h4>Ваша корзина пуста</h4></p>
+            </div>
+        }
+    </div>
+    
+</body>
+</html>
